@@ -1,0 +1,2053 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Dapplo.HttpExtensions</name>
+    </assembly>
+    <members>
+        <member name="T:Dapplo.HttpExtensions.AuthorizationExtensions">
+            <summary>
+                Extensions to help with Authorization
+            </summary>
+        </member>
+        <member name="M:Dapplo.HttpExtensions.AuthorizationExtensions.EncodeBasic(System.String,System.String)">
+            <summary>
+            This is the basic encoding for username and password
+            </summary>
+            <param name="user">string</param>
+            <param name="password">string</param>
+            <returns>string with Base64 encoded username and password</returns>
+        </member>
+        <member name="M:Dapplo.HttpExtensions.AuthorizationExtensions.SetAuthorization(System.Net.Http.HttpClient,System.String,System.String)">
+            <summary>
+                Set Authorization for the current client
+            </summary>
+            <param name="client">HttpClient</param>
+            <param name="scheme">scheme</param>
+            <param name="authorization">value</param>
+            <returns>HttpClient for fluent usage</returns>
+        </member>
+        <member name="M:Dapplo.HttpExtensions.AuthorizationExtensions.SetBasicAuthorization(System.Net.Http.HttpClient,System.String,System.String)">
+            <summary>
+                Set Basic Authentication for the current client
+            </summary>
+            <param name="client">HttpClient</param>
+            <param name="user">username</param>
+            <param name="password">password</param>
+            <returns>HttpClient for fluent usage</returns>
+        </member>
+        <member name="M:Dapplo.HttpExtensions.AuthorizationExtensions.SetBasicAuthorization(System.Net.Http.HttpClient,System.Uri)">
+            <summary>
+                Use the UserInfo from the Uri to set the basic authorization information
+            </summary>
+            <param name="client">HttpClient</param>
+            <param name="uri">Uri with UserInfo</param>
+            <returns>HttpClient for fluent usage</returns>
+        </member>
+        <member name="M:Dapplo.HttpExtensions.AuthorizationExtensions.SetBearer(System.Net.Http.HttpClient,System.String)">
+            <summary>
+                Set Bearer "Authentication" for the current client
+            </summary>
+            <param name="client">HttpClient</param>
+            <param name="bearer">Bearer for the authorization</param>
+            <returns>HttpClient for fluent usage</returns>
+        </member>
+        <member name="M:Dapplo.HttpExtensions.AuthorizationExtensions.SetAuthorization(System.Net.Http.HttpRequestMessage,System.String,System.String)">
+            <summary>
+                Simplest way to set the authorization header
+            </summary>
+            <param name="httpRequestMessage">HttpRequestMessage</param>
+            <param name="scheme">The authorization scheme, e.g. Bearer or Basic</param>
+            <param name="parameter">the value to the scheme</param>
+            <returns>HttpRequestMessage for fluent usage</returns>
+        </member>
+        <member name="M:Dapplo.HttpExtensions.AuthorizationExtensions.SetBasicAuthorization(System.Net.Http.HttpRequestMessage,System.String,System.String)">
+            <summary>
+                Set Basic Authentication for the HttpRequestMessage
+            </summary>
+            <param name="httpRequestMessage">HttpRequestMessage</param>
+            <param name="user">username</param>
+            <param name="password">password</param>
+            <returns>HttpRequestMessage for fluent usage</returns>
+        </member>
+        <member name="M:Dapplo.HttpExtensions.AuthorizationExtensions.SetBasicAuthorization(System.Net.Http.HttpRequestMessage,System.Uri)">
+            <summary>
+                Use the UserInfo from the Uri to set the basic authorization information
+            </summary>
+            <param name="httpRequestMessage">HttpRequestMessage</param>
+            <param name="uri">Uri with UserInfo</param>
+            <returns>HttpRequestMessage for fluent usage</returns>
+        </member>
+        <member name="M:Dapplo.HttpExtensions.AuthorizationExtensions.SetBearer(System.Net.Http.HttpRequestMessage,System.String)">
+            <summary>
+                Set Bearer "Authentication" for the HttpRequestMessage
+            </summary>
+            <param name="httpRequestMessage">HttpRequestMessage</param>
+            <param name="bearer">Bearer for the authorization</param>
+            <returns>HttpRequestMessage for fluent usage</returns>
+        </member>
+        <member name="M:Dapplo.HttpExtensions.AuthorizationExtensions.SetCredentials(System.Uri,System.String,System.String)">
+            <summary>
+                Sets the UserInfo of the Uri
+            </summary>
+            <param name="uri">Uri to extend</param>
+            <param name="username">username of value</param>
+            <param name="password">password for the user</param>
+            <returns>Uri with extended query</returns>
+        </member>
+        <member name="T:Dapplo.HttpExtensions.ContentConverter.ByteArrayHttpContentConverter">
+            <summary>
+                This can convert HttpContent from/to a byte[]
+            </summary>
+        </member>
+        <member name="P:Dapplo.HttpExtensions.ContentConverter.ByteArrayHttpContentConverter.Instance">
+            <summary>
+                Instance of this IHttpContentConverter for reusing
+            </summary>
+        </member>
+        <member name="P:Dapplo.HttpExtensions.ContentConverter.ByteArrayHttpContentConverter.Order">
+            <summary>
+                Order or priority of the IHttpContentConverter
+            </summary>
+        </member>
+        <member name="M:Dapplo.HttpExtensions.ContentConverter.ByteArrayHttpContentConverter.CanConvertFromHttpContent(System.Type,System.Net.Http.HttpContent)">
+            <summary>
+                Check if we can convert from the HttpContent to a byte array
+            </summary>
+            <param name="typeToConvertTo">To what type will the result be assigned</param>
+            <param name="httpContent">HttpContent</param>
+            <returns>true if we can convert the HttpContent to a ByteArray</returns>
+        </member>
+        <member name="M:Dapplo.HttpExtensions.ContentConverter.ByteArrayHttpContentConverter.ConvertFromHttpContentAsync(System.Type,System.Net.Http.HttpContent,System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:Dapplo.HttpExtensions.ContentConverter.ByteArrayHttpContentConverter.CanConvertToHttpContent(System.Type,System.Object)">
+            <inheritdoc />
+        </member>
+        <member name="M:Dapplo.HttpExtensions.ContentConverter.ByteArrayHttpContentConverter.ConvertToHttpContent(System.Type,System.Object)">
+            <inheritdoc />
+        </member>
+        <member name="M:Dapplo.HttpExtensions.ContentConverter.ByteArrayHttpContentConverter.AddAcceptHeadersForType(System.Type,System.Net.Http.HttpRequestMessage)">
+            <inheritdoc />
+        </member>
+        <member name="T:Dapplo.HttpExtensions.ContentConverter.DefaultJsonHttpContentConverter">
+            <summary>
+                This can convert HttpContent from/to Json
+                TODO: add JsonObject from SimpleJson for more clear generic code..
+            </summary>
+        </member>
+        <member name="P:Dapplo.HttpExtensions.ContentConverter.DefaultJsonHttpContentConverter.Instance">
+            <summary>
+                Instance of this IHttpContentConverter for reusing
+            </summary>
+        </member>
+        <member name="P:Dapplo.HttpExtensions.ContentConverter.DefaultJsonHttpContentConverter.AppendedWhenCut">
+            <summary>
+                If the json content is any longer than LogThreshold AppendedWhenCut is appended to the cut string
+            </summary>
+        </member>
+        <member name="P:Dapplo.HttpExtensions.ContentConverter.DefaultJsonHttpContentConverter.LogThreshold">
+            <summary>
+                This is the amount of characters that are written to the log, if the json content is any longer that it will be cut
+                (and AppendedWhenCut is appended)
+            </summary>
+        </member>
+        <member name="P:Dapplo.HttpExtensions.ContentConverter.DefaultJsonHttpContentConverter.Order">
+            <inheritdoc />
+        </member>
+        <member name="M:Dapplo.HttpExtensions.ContentConverter.DefaultJsonHttpContentConverter.CanConvertFromHttpContent(System.Type,System.Net.Http.HttpContent)">
+            <inheritdoc />
+        </member>
+        <member name="M:Dapplo.HttpExtensions.ContentConverter.DefaultJsonHttpContentConverter.ConvertFromHttpContentAsync(System.Type,System.Net.Http.HttpContent,System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:Dapplo.HttpExtensions.ContentConverter.DefaultJsonHttpContentConverter.CanConvertToHttpContent(System.Type,System.Object)">
+            <inheritdoc />
+        </member>
+        <member name="M:Dapplo.HttpExtensions.ContentConverter.DefaultJsonHttpContentConverter.ConvertToHttpContent(System.Type,System.Object)">
+            <inheritdoc />
+        </member>
+        <member name="M:Dapplo.HttpExtensions.ContentConverter.DefaultJsonHttpContentConverter.AddAcceptHeadersForType(System.Type,System.Net.Http.HttpRequestMessage)">
+            <summary>
+                Add Accept-Headers to the HttpRequestMessage, depending on the passt resultType.
+                This tries to hint the Http server what we can accept, which depends on the type of the return value
+            </summary>
+            <param name="resultType">Result type, this where to a conversion from HttpContent is made</param>
+            <param name="httpRequestMessage">HttpRequestMessage</param>
+        </member>
+        <member name="T:Dapplo.HttpExtensions.ContentConverter.FormUriEncodedContentConverter">
+            <summary>
+                This can convert HttpContent from/to a IEnumerable keyvaluepair string-string or IDictionary string,string
+                A common usage is the oauth2 token request as described here:
+                https://developers.google.com/identity/protocols/OAuth2InstalledApp
+                (the response would be json, that is for the JsonHttpContentConverter)
+            </summary>
+        </member>
+        <member name="P:Dapplo.HttpExtensions.ContentConverter.FormUriEncodedContentConverter.Instance">
+            <summary>
+                Instance of this IHttpContentConverter for reusing
+            </summary>
+        </member>
+        <member name="P:Dapplo.HttpExtensions.ContentConverter.FormUriEncodedContentConverter.Order">
+            <inheritdoc />
+        </member>
+        <member name="M:Dapplo.HttpExtensions.ContentConverter.FormUriEncodedContentConverter.CanConvertFromHttpContent(System.Type,System.Net.Http.HttpContent)">
+            <inheritdoc />
+        </member>
+        <member name="M:Dapplo.HttpExtensions.ContentConverter.FormUriEncodedContentConverter.ConvertFromHttpContentAsync(System.Type,System.Net.Http.HttpContent,System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:Dapplo.HttpExtensions.ContentConverter.FormUriEncodedContentConverter.CanConvertToHttpContent(System.Type,System.Object)">
+            <inheritdoc />
+        </member>
+        <member name="M:Dapplo.HttpExtensions.ContentConverter.FormUriEncodedContentConverter.ConvertToHttpContent(System.Type,System.Object)">
+            <inheritdoc />
+        </member>
+        <member name="M:Dapplo.HttpExtensions.ContentConverter.FormUriEncodedContentConverter.AddAcceptHeadersForType(System.Type,System.Net.Http.HttpRequestMessage)">
+            <summary>
+                Add Accept-Headers to the HttpRequestMessage, depending on the passt resultType.
+                This tries to hint the Http server what we can accept, which depends on the type of the return value
+            </summary>
+            <param name="resultType">Result type, this where to a conversion from HttpContent is made</param>
+            <param name="httpRequestMessage">HttpRequestMessage</param>
+        </member>
+        <member name="T:Dapplo.HttpExtensions.ContentConverter.StreamHttpContentConverter">
+            <summary>
+                This can convert HttpContent from/to a MemoryStream
+            </summary>
+        </member>
+        <member name="P:Dapplo.HttpExtensions.ContentConverter.StreamHttpContentConverter.Instance">
+            <summary>
+                Instance of this IHttpContentConverter for reusing
+            </summary>
+        </member>
+        <member name="P:Dapplo.HttpExtensions.ContentConverter.StreamHttpContentConverter.Order">
+            <inheritdoc />
+        </member>
+        <member name="M:Dapplo.HttpExtensions.ContentConverter.StreamHttpContentConverter.CanConvertFromHttpContent(System.Type,System.Net.Http.HttpContent)">
+            <inheritdoc />
+        </member>
+        <member name="M:Dapplo.HttpExtensions.ContentConverter.StreamHttpContentConverter.ConvertFromHttpContentAsync(System.Type,System.Net.Http.HttpContent,System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:Dapplo.HttpExtensions.ContentConverter.StreamHttpContentConverter.CanConvertToHttpContent(System.Type,System.Object)">
+            <inheritdoc />
+        </member>
+        <member name="M:Dapplo.HttpExtensions.ContentConverter.StreamHttpContentConverter.ConvertToHttpContent(System.Type,System.Object)">
+            <inheritdoc />
+        </member>
+        <member name="M:Dapplo.HttpExtensions.ContentConverter.StreamHttpContentConverter.AddAcceptHeadersForType(System.Type,System.Net.Http.HttpRequestMessage)">
+            <summary>
+                Add Accept-Headers to the HttpRequestMessage, depending on the passt resultType.
+                This tries to hint the Http server what we can accept, which depends on the type of the return value
+            </summary>
+            <param name="resultType">Result type, this where to a conversion from HttpContent is made</param>
+            <param name="httpRequestMessage">HttpRequestMessage</param>
+        </member>
+        <member name="T:Dapplo.HttpExtensions.ContentConverter.StringConfiguration">
+            <summary>
+                Configuration for the StringHttpContentConverter
+            </summary>
+        </member>
+        <member name="P:Dapplo.HttpExtensions.ContentConverter.StringConfiguration.SupportedContentTypes">
+            <summary>
+                Specify the supported content types
+            </summary>
+        </member>
+        <member name="P:Dapplo.HttpExtensions.ContentConverter.StringConfiguration.Name">
+            <summary>
+                Name of the configuration, this should be unique and usually is the type of the object
+            </summary>
+        </member>
+        <member name="T:Dapplo.HttpExtensions.ContentConverter.StringHttpContentConverter">
+            <summary>
+                This can convert HttpContent from/to a string
+            </summary>
+        </member>
+        <member name="P:Dapplo.HttpExtensions.ContentConverter.StringHttpContentConverter.Instance">
+            <summary>
+                Instance of this IHttpContentConverter for reusing
+            </summary>
+        </member>
+        <member name="P:Dapplo.HttpExtensions.ContentConverter.StringHttpContentConverter.Order">
+            <inheritdoc />
+        </member>
+        <member name="M:Dapplo.HttpExtensions.ContentConverter.StringHttpContentConverter.CanConvertFromHttpContent(System.Type,System.Net.Http.HttpContent)">
+            <inheritdoc />
+        </member>
+        <member name="M:Dapplo.HttpExtensions.ContentConverter.StringHttpContentConverter.ConvertFromHttpContentAsync(System.Type,System.Net.Http.HttpContent,System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:Dapplo.HttpExtensions.ContentConverter.StringHttpContentConverter.CanConvertToHttpContent(System.Type,System.Object)">
+            <inheritdoc />
+        </member>
+        <member name="M:Dapplo.HttpExtensions.ContentConverter.StringHttpContentConverter.ConvertToHttpContent(System.Type,System.Object)">
+            <inheritdoc />
+        </member>
+        <member name="M:Dapplo.HttpExtensions.ContentConverter.StringHttpContentConverter.AddAcceptHeadersForType(System.Type,System.Net.Http.HttpRequestMessage)">
+            <summary>
+                Add Accept-Headers to the HttpRequestMessage, depending on the passt resultType.
+                This tries to hint the Http server what we can accept, which depends on the type of the return value
+            </summary>
+            <param name="typeToConvertTo">Result type, this where to a conversion from HttpContent is made</param>
+            <param name="httpRequestMessage">HttpRequestMessage</param>
+        </member>
+        <member name="T:Dapplo.HttpExtensions.Extensions.EnumExtensions">
+            <summary>
+                Extensions for enums
+            </summary>
+        </member>
+        <member name="M:Dapplo.HttpExtensions.Extensions.EnumExtensions.EnumValueOf(System.Enum)">
+            <summary>
+                The returns the Value from the EnumMemberAttribute, or a ToString on the element.
+                This can be used to create a lookup from string to enum element
+            </summary>
+            <param name="enumerationItem">Enum</param>
+            <returns>string</returns>
+        </member>
+        <member name="T:Dapplo.HttpExtensions.Extensions.HttpBehaviourExtensions">
+            <summary>
+                Extensions for HttpBehaviour
+            </summary>
+        </member>
+        <member name="M:Dapplo.HttpExtensions.Extensions.HttpBehaviourExtensions.GetConfig``1(Dapplo.HttpExtensions.IHttpBehaviour)">
+            <summary>
+                Get the IHttpRequestConfiguration from the IHttpBehaviour
+            </summary>
+            <typeparam name="THttpRequestConfiguration">Type which implements IHttpRequestConfiguration</typeparam>
+            <param name="httpBehaviour">IHttpBehaviour instance, if null HttpBehaviour.Current is used</param>
+            <returns>THttpReqestConfiguration</returns>
+        </member>
+        <member name="M:Dapplo.HttpExtensions.Extensions.HttpBehaviourExtensions.SetConfig(Dapplo.HttpExtensions.IHttpBehaviour,Dapplo.HttpExtensions.IHttpRequestConfiguration)">
+            <summary>
+                Set the specified configuration, if it already exists it is overwritten
+            </summary>
+            <param name="httpBehaviour">IHttpBehaviour</param>
+            <param name="configuration">THttpReqestConfiguration</param>
+            <returns>IHttpBehaviour</returns>
+        </member>
+        <member name="T:Dapplo.HttpExtensions.Extensions.StringExtensions">
+            <summary>
+                Formatwith extension for the string
+            </summary>
+        </member>
+        <member name="M:Dapplo.HttpExtensions.Extensions.StringExtensions.FormatWith(System.String,System.Object[])">
+            <summary>
+                Format the string "format" with the source
+            </summary>
+            <param name="format">String with formatting, like {name}</param>
+            <param name="sources">
+                object [] with properties, if a property has the type IDictionary string,string it can used these
+                parameters too
+            </param>
+            <returns>Formatted string</returns>
+        </member>
+        <member name="M:Dapplo.HttpExtensions.Extensions.StringExtensions.FormatWith(System.String,System.IFormatProvider,System.Object[])">
+            <summary>
+                Format the string "format" with the source
+            </summary>
+            <param name="format">String with formatting, like {name}</param>
+            <param name="provider">IFormatProvider</param>
+            <param name="sources">
+                object with properties, if a property has the type IDictionary string,string it can used these
+                parameters too
+            </param>
+            <returns>Formatted string</returns>
+        </member>
+        <member name="M:Dapplo.HttpExtensions.Extensions.StringExtensions.MapToProperties(System.Collections.Generic.IDictionary{System.String,System.Object},System.Int32,System.Object)">
+            <summary>
+                Helper method to fill the properties with the values from the source
+            </summary>
+            <param name="properties">IDictionary with the possible properties</param>
+            <param name="index">int with index in the current sources</param>
+            <param name="source">object</param>
+        </member>
+        <member name="M:Dapplo.HttpExtensions.Extensions.StringExtensions.DictionaryToGenericDictionary``2(System.Collections.Generic.IDictionary{``0,``1},System.Collections.IDictionary)">
+            <summary>
+                Map a dictionary to properties
+            </summary>
+            <param name="properties">IDictionary with properties to add to</param>
+            <param name="dictionary">dictionary to process, or null due to "as" cast</param>
+            <returns>false if dictionary was null</returns>
+        </member>
+        <member name="T:Dapplo.HttpExtensions.Extensions.TypeExtensions">
+            <summary>
+                Extensions for the Type class
+            </summary>
+        </member>
+        <member name="M:Dapplo.HttpExtensions.Extensions.TypeExtensions.FriendlyName(System.Type)">
+            <summary>
+                Get the name of a type which is readable, even if generics are used.
+            </summary>
+            <param name="type">Type</param>
+            <returns>string</returns>
+        </member>
+        <member name="T:Dapplo.HttpExtensions.Factory.HttpClientFactory">
+            <summary>
+                Creating a HttpClient is not very straightforward, that is why the logic is capsulated in the HttpClientFactory.
+            </summary>
+        </member>
+        <member name="M:Dapplo.HttpExtensions.Factory.HttpClientFactory.Create(System.Uri)">
+            <summary>
+                Create a HttpClient which is modified by the settings specified in the IHttpSettings of the HttpBehaviour.
+                If nothing is passed, the GlobalSettings are used
+            </summary>
+            <param name="uriForConfiguration">
+                If a Uri is supplied, this is used to configure the HttpClient. Currently the
+                Uri.UserInfo is used to set the basic authorization.
+            </param>
+            <returns>HttpClient</returns>
+        </member>
+        <member name="T:Dapplo.HttpExtensions.Factory.HttpContentFactory">
+            <summary>
+                Factory methods to create HttpContent
+            </summary>
+        </member>
+        <member name="M:Dapplo.HttpExtensions.Factory.HttpContentFactory.Create(System.Type,System.Object)">
+            <summary>
+                Create a HttpContent object from the supplied content
+            </summary>
+            <param name="inputType">type for the content</param>
+            <param name="content">content</param>
+            <returns>HttpContent</returns>
+        </member>
+        <member name="M:Dapplo.HttpExtensions.Factory.HttpContentFactory.Create(Dapplo.HttpExtensions.IHttpBehaviour,Dapplo.HttpExtensions.Support.ContentItem)">
+            <summary>
+                Helper method to create content
+            </summary>
+            <param name="httpBehaviour">IHttpBehaviour</param>
+            <param name="contentItem"></param>
+            <returns>HttpContent</returns>
+        </member>
+        <member name="M:Dapplo.HttpExtensions.Factory.HttpContentFactory.Create(Dapplo.HttpExtensions.IHttpBehaviour,System.Type,System.Object,System.String)">
+            <summary>
+                Helper method to create content
+            </summary>
+            <param name="httpBehaviour">IHttpBehaviour</param>
+            <param name="inputType">Type</param>
+            <param name="content">object</param>
+            <param name="contentType">if a specific content-Type is needed, specify it</param>
+            <returns>HttpContent</returns>
+        </member>
+        <member name="M:Dapplo.HttpExtensions.Factory.HttpContentFactory.Create``1(``0)">
+            <summary>
+                Create a HttpContent object from the supplied content
+            </summary>
+            <typeparam name="TInput">type for the content</typeparam>
+            <param name="content">content</param>
+            <returns>HttpContent</returns>
+        </member>
+        <member name="T:Dapplo.HttpExtensions.Factory.HttpMessageHandlerFactory">
+            <summary>
+                Creating a HttpMessageHandler is not very straightforward, that is why the logic is capsulated in the
+                HttpMessageHandlerFactory.
+            </summary>
+        </member>
+        <member name="M:Dapplo.HttpExtensions.Factory.HttpMessageHandlerFactory.CreateHandler">
+            <summary>
+                This creates an advanced HttpMessageHandler, used in Apps
+            </summary>
+            <returns>HttpMessageHandler (HttpClientHandler)</returns>
+        </member>
+        <member name="M:Dapplo.HttpExtensions.Factory.HttpMessageHandlerFactory.Create">
+            <summary>
+                This creates a HttpMessageHandler
+                Should be the preferred method to use to create a HttpMessageHandler
+            </summary>
+            <returns>HttpMessageHandler (WebRequestHandler)</returns>
+        </member>
+        <member name="M:Dapplo.HttpExtensions.Factory.HttpMessageHandlerFactory.SetDefaults(System.Net.Http.HttpClientHandler)">
+            <summary>
+                Apply settings on the HttpClientHandler
+            </summary>
+            <param name="httpClientHandler"></param>
+        </member>
+        <member name="T:Dapplo.HttpExtensions.Factory.HttpRequestMessageFactory">
+            <summary>
+                Dapplo.HttpExtension uses the HttpRequestMessage to send the requests.
+                This makes it a lot more flexible to use Accept headers and other stuff
+                This is the factory for it.
+            </summary>
+        </member>
+        <member name="M:Dapplo.HttpExtensions.Factory.HttpRequestMessageFactory.Create(System.Net.Http.HttpMethod,System.Uri,System.Type,System.Type,System.Object)">
+            <summary>
+                Create a HttpRequestMessage for the specified method
+            </summary>
+            <param name="method">Method to create the request message for</param>
+            <param name="requestUri">the target uri for this message</param>
+            <param name="resultType">Type</param>
+            <param name="contentType">Type</param>
+            <param name="content">content to convert to HttpContent</param>
+            <returns>HttpRequestMessage</returns>
+        </member>
+        <member name="M:Dapplo.HttpExtensions.Factory.HttpRequestMessageFactory.Create``2(System.Net.Http.HttpMethod,System.Uri,``1)">
+            <summary>
+                Create a HttpRequestMessage for the specified method
+            </summary>
+            <typeparam name="TResponse">The type for the response, this modifies the Accept headers</typeparam>
+            <typeparam name="TContent">The type of the content (for put / post)</typeparam>
+            <param name="method">Method to create the request message for</param>
+            <param name="requestUri">the target uri for this message</param>
+            <param name="content">HttpContent</param>
+            <returns>HttpRequestMessage</returns>
+        </member>
+        <member name="M:Dapplo.HttpExtensions.Factory.HttpRequestMessageFactory.Create``1(System.Net.Http.HttpMethod,System.Uri)">
+            <summary>
+                Create a HttpRequestMessage for the specified method
+            </summary>
+            <typeparam name="TResponse">The type for the response, this modifies the Accept headers</typeparam>
+            <param name="method">Method to create the request message for</param>
+            <param name="requestUri">the target uri for this message</param>
+            <returns>HttpRequestMessage</returns>
+        </member>
+        <member name="M:Dapplo.HttpExtensions.Factory.HttpRequestMessageFactory.CreateDelete``1(System.Uri)">
+            <summary>
+                Create a HttpRequestMessage for the DELETE method
+            </summary>
+            <param name="requestUri">the target uri for this message</param>
+            <typeparam name="TResponse">The type for the response, this modifies the Accep headers</typeparam>
+            <returns>HttpRequestMessage</returns>
+        </member>
+        <member name="M:Dapplo.HttpExtensions.Factory.HttpRequestMessageFactory.CreateDelete(System.Uri)">
+            <summary>
+                Create a HttpRequestMessage for the DELETE method
+            </summary>
+            <param name="requestUri">the target uri for this message</param>
+            <returns>HttpRequestMessage</returns>
+        </member>
+        <member name="M:Dapplo.HttpExtensions.Factory.HttpRequestMessageFactory.CreateGet``1(System.Uri)">
+            <summary>
+                Create a HttpRequestMessage for the GET method
+            </summary>
+            <param name="requestUri">the target uri for this message</param>
+            <typeparam name="TResponse">The type for the response, this modifies the Accept headers</typeparam>
+            <returns>HttpRequestMessage</returns>
+        </member>
+        <member name="M:Dapplo.HttpExtensions.Factory.HttpRequestMessageFactory.CreateHead(System.Uri)">
+            <summary>
+                Create a HttpRequestMessage for the HEAD method
+            </summary>
+            <param name="requestUri">the target uri for this message</param>
+            <returns>HttpRequestMessage</returns>
+        </member>
+        <member name="M:Dapplo.HttpExtensions.Factory.HttpRequestMessageFactory.CreatePost``1(System.Uri,System.Object)">
+            <summary>
+                Create a HttpRequestMessage for the POST method
+            </summary>
+            <typeparam name="TResponse">The type for the response, this modifies the Accept headers</typeparam>
+            <param name="requestUri">the target uri for this message</param>
+            <param name="content">HttpContent</param>
+            <returns>HttpRequestMessage</returns>
+        </member>
+        <member name="M:Dapplo.HttpExtensions.Factory.HttpRequestMessageFactory.CreatePost(System.Uri,System.Object)">
+            <summary>
+                Create a HttpRequestMessage for the POST method
+            </summary>
+            <param name="requestUri">the target uri for this message</param>
+            <param name="content">HttpContent</param>
+            <returns>HttpRequestMessage</returns>
+        </member>
+        <member name="M:Dapplo.HttpExtensions.Factory.HttpRequestMessageFactory.CreatePut``1(System.Uri,System.Object)">
+            <summary>
+                Create a HttpRequestMessage for the PUT method
+            </summary>
+            <typeparam name="TResponse">The type for the response, this modifies the Accept headers</typeparam>
+            <param name="requestUri">the target uri for this message</param>
+            <param name="content">HttpContent</param>
+            <returns>HttpRequestMessage</returns>
+        </member>
+        <member name="M:Dapplo.HttpExtensions.Factory.HttpRequestMessageFactory.CreatePut(System.Uri,System.Object)">
+            <summary>
+                Create a HttpRequestMessage for the PUT method
+            </summary>
+            <param name="requestUri">the target uri for this message</param>
+            <param name="content">HttpContent</param>
+            <returns>HttpRequestMessage</returns>
+        </member>
+        <member name="T:Dapplo.HttpExtensions.HttpBehaviour">
+            <summary>
+                This is the default implementation of the IHttpBehaviour, see IHttpBehaviour for details
+                Most values are initialized via the HttpExtensionsGlobals
+            </summary>
+        </member>
+        <member name="P:Dapplo.HttpExtensions.HttpBehaviour.Current">
+            <summary>
+                Retrieve the current IHttpBehaviour from the CallContext, if there is nothing available, create and make it current
+                This never returns null
+            </summary>
+        </member>
+        <member name="P:Dapplo.HttpExtensions.HttpBehaviour.HttpSettings">
+            <inheritdoc />
+        </member>
+        <member name="P:Dapplo.HttpExtensions.HttpBehaviour.JsonSerializer">
+            <inheritdoc />
+        </member>
+        <member name="P:Dapplo.HttpExtensions.HttpBehaviour.HttpContentConverters">
+            <inheritdoc />
+        </member>
+        <member name="P:Dapplo.HttpExtensions.HttpBehaviour.OnHttpRequestMessageCreated">
+            <inheritdoc />
+        </member>
+        <member name="P:Dapplo.HttpExtensions.HttpBehaviour.OnHttpClientCreated">
+            <inheritdoc />
+        </member>
+        <member name="P:Dapplo.HttpExtensions.HttpBehaviour.OnHttpMessageHandlerCreated">
+            <inheritdoc />
+        </member>
+        <member name="P:Dapplo.HttpExtensions.HttpBehaviour.OnHttpContentCreated">
+            <inheritdoc />
+        </member>
+        <member name="P:Dapplo.HttpExtensions.HttpBehaviour.UploadProgress">
+            <inheritdoc />
+        </member>
+        <member name="P:Dapplo.HttpExtensions.HttpBehaviour.DownloadProgress">
+            <inheritdoc />
+        </member>
+        <member name="P:Dapplo.HttpExtensions.HttpBehaviour.CallProgressOnUiContext">
+            <inheritdoc />
+        </member>
+        <member name="P:Dapplo.HttpExtensions.HttpBehaviour.UseProgressStream">
+            <inheritdoc />
+        </member>
+        <member name="P:Dapplo.HttpExtensions.HttpBehaviour.ThrowOnError">
+            <inheritdoc />
+        </member>
+        <member name="P:Dapplo.HttpExtensions.HttpBehaviour.HttpCompletionOption">
+            <summary>
+                The ResponseHeadersRead forces a pause between the initial response and reading the content, this is needed for
+                better error handling and progress
+                Turning this to ResponseContentRead might change the behaviour
+            </summary>
+        </member>
+        <member name="P:Dapplo.HttpExtensions.HttpBehaviour.ValidateResponseContentType">
+            <inheritdoc />
+        </member>
+        <member name="P:Dapplo.HttpExtensions.HttpBehaviour.RequestConfigurations">
+            <summary>
+                Configuration for different parts of the library, or your own implementations, which can be set on a thread/request
+                base
+            </summary>
+        </member>
+        <member name="P:Dapplo.HttpExtensions.HttpBehaviour.DefaultEncoding">
+            <inheritdoc />
+        </member>
+        <member name="P:Dapplo.HttpExtensions.HttpBehaviour.ReadBufferSize">
+            <inheritdoc />
+        </member>
+        <member name="P:Dapplo.HttpExtensions.HttpBehaviour.CookieContainer">
+            <inheritdoc />
+        </member>
+        <member name="M:Dapplo.HttpExtensions.HttpBehaviour.ShallowClone">
+            <inheritdoc />
+        </member>
+        <member name="M:Dapplo.HttpExtensions.HttpBehaviour.MakeCurrent">
+            <inheritdoc />
+        </member>
+        <member name="T:Dapplo.HttpExtensions.HttpBehaviourExtensions">
+            <summary>
+                Extensions for the HttpBehaviour class
+            </summary>
+        </member>
+        <member name="M:Dapplo.HttpExtensions.HttpBehaviourExtensions.ChainOnHttpContentCreated(Dapplo.HttpExtensions.IChangeableHttpBehaviour,System.Func{System.Net.Http.HttpContent,System.Net.Http.HttpContent})">
+            <summary>
+                Chain the current OnHttpContentCreated
+            </summary>
+            <param name="changeableHttpBehaviour"></param>
+            <param name="newOnHttpContentCreated"></param>
+            <returns>IChangeableHttpBehaviour for fluent usage</returns>
+        </member>
+        <member name="M:Dapplo.HttpExtensions.HttpBehaviourExtensions.ChainOnHttpMessageHandlerCreated(Dapplo.HttpExtensions.IChangeableHttpBehaviour,System.Func{System.Net.Http.HttpMessageHandler,System.Net.Http.HttpMessageHandler})">
+            <summary>
+                Chain the current OnHttpMessageHandlerCreated
+            </summary>
+            <param name="changeableHttpBehaviour"></param>
+            <param name="newOnHttpMessageHandlerCreated">function which accepts a HttpMessageHandler and also returns one</param>
+            <returns>IChangeableHttpBehaviour for fluent usage</returns>
+        </member>
+        <member name="M:Dapplo.HttpExtensions.HttpBehaviourExtensions.ChainOnHttpRequestMessageCreated(Dapplo.HttpExtensions.IChangeableHttpBehaviour,System.Func{System.Net.Http.HttpRequestMessage,System.Net.Http.HttpRequestMessage})">
+            <summary>
+                Chain the current OnHttpRequestMessageCreated function
+            </summary>
+            <param name="changeableHttpBehaviour">IChangeableHttpBehaviour</param>
+            <param name="newOnHttpRequestMessageCreated">Function which accepts and returns HttpRequestMessage</param>
+            <returns>IChangeableHttpBehaviour for fluent usage</returns>
+        </member>
+        <member name="T:Dapplo.HttpExtensions.HttpClientExtensions">
+            <summary>
+                Extensions for the HttpClient class
+            </summary>
+        </member>
+        <member name="M:Dapplo.HttpExtensions.HttpClientExtensions.AddDefaultRequestHeader(System.Net.Http.HttpClient,System.String,System.String)">
+            <summary>
+                Add default request header without validation
+            </summary>
+            <param name="client">HttpClient</param>
+            <param name="name">Header name</param>
+            <param name="value">Header value</param>
+            <returns>HttpClient for fluent usage</returns>
+        </member>
+        <member name="M:Dapplo.HttpExtensions.HttpClientExtensions.DeleteAsync``1(System.Net.Http.HttpClient,System.Uri,System.Threading.CancellationToken)">
+            <summary>
+                Send a Delete request to the server
+            </summary>
+            <typeparam name="TResponse">
+                the generic type to return the result into, use HttpContent or HttpResponseMessage to get
+                those unprocessed
+            </typeparam>
+            <param name="httpClient">HttpClient</param>
+            <param name="uri">Uri to send the delete request to</param>
+            <param name="cancellationToken">CancellationToken</param>
+            <returns>TResult</returns>
+        </member>
+        <member name="M:Dapplo.HttpExtensions.HttpClientExtensions.DeleteAsync(System.Net.Http.HttpClient,System.Uri,System.Threading.CancellationToken)">
+            <summary>
+                Send a Delete request to the server
+            </summary>
+            <param name="httpClient">HttpClient</param>
+            <param name="uri">Uri to send the delete request to</param>
+            <param name="cancellationToken">CancellationToken</param>
+            <returns>Task</returns>
+        </member>
+        <member name="M:Dapplo.HttpExtensions.HttpClientExtensions.GetAsAsync``1(System.Net.Http.HttpClient,System.Uri,System.Threading.CancellationToken)">
+            <summary>
+                Get the content from the specified uri via the HttpClient read into a Type object
+                Currently we support Json objects which are annotated with the DataContract/DataMember attributes
+                We might support other object, e.g MemoryStream, Bitmap etc soon
+            </summary>
+            <typeparam name="TResponse">The Type to read into</typeparam>
+            <param name="client">HttpClient</param>
+            <param name="uri">URI</param>
+            <param name="cancellationToken">CancellationToken</param>
+            <returns>the deserialized object of type T or default(T)</returns>
+        </member>
+        <member name="M:Dapplo.HttpExtensions.HttpClientExtensions.HeadAsync(System.Net.Http.HttpClient,System.Uri,System.Threading.CancellationToken)">
+            <summary>
+                Retrieve only the content headers, by using the HTTP HEAD method
+            </summary>
+            <param name="httpClient"></param>
+            <param name="uri">Uri to get HEAD for</param>
+            <param name="cancellationToken">CancellationToken</param>
+            <returns>HttpContentHeaders</returns>
+        </member>
+        <member name="M:Dapplo.HttpExtensions.HttpClientExtensions.PostAsync``1(System.Net.Http.HttpClient,System.Uri,System.Object,System.Threading.CancellationToken)">
+            <summary>
+                Post the content, and get the reponse
+            </summary>
+            <typeparam name="TResponse">
+                the generic type to return the result into, use HttpContent or HttpResponseMessage to get
+                those unprocessed
+            </typeparam>
+            <param name="httpClient">HttpClient</param>
+            <param name="uri">Uri to post request to</param>
+            <param name="content">Content to post</param>
+            <param name="cancellationToken">CancellationToken</param>
+            <returns>TResult</returns>
+        </member>
+        <member name="M:Dapplo.HttpExtensions.HttpClientExtensions.PostAsync(System.Net.Http.HttpClient,System.Uri,System.Object,System.Threading.CancellationToken)">
+            <summary>
+                Post the content, and don't expect (ignore) the response
+            </summary>
+            <param name="httpClient">HttpClient</param>
+            <param name="uri">Uri to post an empty request to</param>
+            <param name="content">Content to post</param>
+            <param name="cancellationToken">CancellationToken</param>
+        </member>
+        <member name="M:Dapplo.HttpExtensions.HttpClientExtensions.PutAsync``1(System.Net.Http.HttpClient,System.Uri,System.Object,System.Threading.CancellationToken)">
+            <summary>
+                Put the content, and get the reponse
+            </summary>
+            <typeparam name="TResponse">
+                the generic type to return the result into, use HttpContent or HttpResponseMessage to get
+                those unprocessed
+            </typeparam>
+            <param name="httpClient">HttpClient</param>
+            <param name="uri">Uri to put the request to</param>
+            <param name="content">Content to put</param>
+            <param name="cancellationToken">CancellationToken</param>
+            <returns>TResult</returns>
+        </member>
+        <member name="M:Dapplo.HttpExtensions.HttpClientExtensions.PutAsync(System.Net.Http.HttpClient,System.Uri,System.Object,System.Threading.CancellationToken)">
+            <summary>
+                Put the content, ignore the reponse
+            </summary>
+            <param name="httpClient">HttpClient</param>
+            <param name="uri">Uri to put the request to</param>
+            <param name="content">Content to put</param>
+            <param name="cancellationToken">CancellationToken</param>
+            <returns>Task</returns>
+        </member>
+        <member name="T:Dapplo.HttpExtensions.HttpContentExtensions">
+            <summary>
+                Extensions for the HttpContent
+            </summary>
+        </member>
+        <member name="F:Dapplo.HttpExtensions.HttpContentExtensions.ReadableContentTypes">
+            <summary>
+                Specify the supported content types
+            </summary>
+        </member>
+        <member name="M:Dapplo.HttpExtensions.HttpContentExtensions.GetAsAsync``1(System.Net.Http.HttpContent,System.Net.HttpStatusCode,System.Threading.CancellationToken)">
+            <summary>
+                Extension method reading the httpContent to a Typed object, depending on the returned content-type
+                Currently we support:
+                Json objects which are annotated with the DataContract/DataMember attributes
+            </summary>
+            <typeparam name="TResult">The Type to read into</typeparam>
+            <param name="httpContent">HttpContent</param>
+            <param name="httpStatusCode">HttpStatusCode</param>
+            <param name="cancellationToken">CancellationToken</param>
+            <returns>the deserialized object of type T</returns>
+        </member>
+        <member name="M:Dapplo.HttpExtensions.HttpContentExtensions.GetAsAsync(System.Net.Http.HttpContent,System.Type,System.Net.HttpStatusCode,System.Threading.CancellationToken)">
+            <summary>
+                Extension method reading the httpContent to a Typed object, depending on the returned content-type
+                Currently we support:
+                Json objects which are annotated with the DataContract/DataMember attributes
+            </summary>
+            <param name="httpContent">HttpContent</param>
+            <param name="resultType">The Type to read into</param>
+            <param name="httpStatusCode">HttpStatusCode</param>
+            <param name="cancellationToken">CancellationToken</param>
+            <returns>the deserialized object of type T</returns>
+        </member>
+        <member name="M:Dapplo.HttpExtensions.HttpContentExtensions.GetContentStream(System.Net.Http.HttpContent)">
+            <summary>
+                Get the Content-stream of the HttpContent, wrap it in ProgressStream if this is specified
+            </summary>
+            <param name="httpContent"></param>
+            <returns>Stream from ReadAsStreamAsync eventually wrapped by ProgressStream</returns>
+        </member>
+        <member name="M:Dapplo.HttpExtensions.HttpContentExtensions.GetContentType(System.Net.Http.HttpContent)">
+            <summary>
+                Simply return the content type of the HttpContent
+            </summary>
+            <param name="httpContent">HttpContent</param>
+            <returns>string with the content type</returns>
+        </member>
+        <member name="M:Dapplo.HttpExtensions.HttpContentExtensions.SetContentType(System.Net.Http.HttpContent,System.String)">
+            <summary>
+                Simply set the content type of the HttpContent
+            </summary>
+            <param name="httpContent">HttpContent</param>
+            <param name="contentType">Content-Type to set</param>
+        </member>
+        <member name="T:Dapplo.HttpExtensions.HttpExtensionsGlobals">
+            <summary>
+                These are the globals for some of the important configurable settings
+                When a HttpBehaviour is created, some of the values from here will be copied. (unless diffently specified)
+            </summary>
+        </member>
+        <member name="P:Dapplo.HttpExtensions.HttpExtensionsGlobals.CallProgressOnUiContext">
+            <summary>
+                The glocal value which specifies if Progress actions are called with UiContext.RunOn
+            </summary>
+        </member>
+        <member name="P:Dapplo.HttpExtensions.HttpExtensionsGlobals.DefaultEncoding">
+            <summary>
+                The global default encoding
+            </summary>
+        </member>
+        <member name="P:Dapplo.HttpExtensions.HttpExtensionsGlobals.HttpContentConverters">
+            <summary>
+                The global list of HttpContent converters
+            </summary>
+        </member>
+        <member name="P:Dapplo.HttpExtensions.HttpExtensionsGlobals.HttpSettings">
+            <summary>
+                The global IHttpSettings
+            </summary>
+        </member>
+        <member name="P:Dapplo.HttpExtensions.HttpExtensionsGlobals.JsonSerializer">
+            <summary>
+                The global JsonSerializer
+            </summary>
+        </member>
+        <member name="P:Dapplo.HttpExtensions.HttpExtensionsGlobals.OAuth2ExpireOffset">
+            <summary>
+                This offset is used in the OAuth2Setting.IsAccessTokenExpired to check the OAuth2AccessTokenExpires
+                Now + this > OAuth2AccessTokenExpires
+            </summary>
+        </member>
+        <member name="P:Dapplo.HttpExtensions.HttpExtensionsGlobals.ReadBufferSize">
+            <summary>
+                The global read buffer-size
+            </summary>
+        </member>
+        <member name="P:Dapplo.HttpExtensions.HttpExtensionsGlobals.ThrowOnError">
+            <summary>
+                Global value for ThrowOnError, see IHttpBehaviour
+            </summary>
+        </member>
+        <member name="P:Dapplo.HttpExtensions.HttpExtensionsGlobals.UseProgressStream">
+            <summary>
+                Global value for UseProgressStream, see IHttpBehaviour
+            </summary>
+        </member>
+        <member name="P:Dapplo.HttpExtensions.HttpExtensionsGlobals.ValidateResponseContentType">
+            <summary>
+                Global validate response content-type
+            </summary>
+        </member>
+        <member name="T:Dapplo.HttpExtensions.HttpRequestMessageConfiguration">
+            <summary>
+                Use this to configure the HttpRequestMessage, created in the HttpRequestMessageFactory
+            </summary>
+        </member>
+        <member name="P:Dapplo.HttpExtensions.HttpRequestMessageConfiguration.Name">
+            <summary>
+                Name of the configuration, this should be unique and usually is the type of the object
+            </summary>
+        </member>
+        <member name="P:Dapplo.HttpExtensions.HttpRequestMessageConfiguration.Properties">
+            <summary>
+                A set of properties for the HTTP request.
+            </summary>
+        </member>
+        <member name="P:Dapplo.HttpExtensions.HttpRequestMessageConfiguration.HttpMessageVersion">
+            <summary>
+                The HTTP Message version, default is 1.1
+            </summary>
+        </member>
+        <member name="T:Dapplo.HttpExtensions.HttpRequestMessageExtensions">
+            <summary>
+                Extensions for the HttpRequestMessage class
+            </summary>
+        </member>
+        <member name="M:Dapplo.HttpExtensions.HttpRequestMessageExtensions.AddRequestHeader(System.Net.Http.HttpRequestMessage,System.String,System.String)">
+            <summary>
+                Add default request header without validation
+            </summary>
+            <param name="httpRequestMessage">HttpRequestMessage</param>
+            <param name="name">Header name</param>
+            <param name="value">Header value</param>
+            <returns>HttpRequestMessage for fluent usage</returns>
+        </member>
+        <member name="M:Dapplo.HttpExtensions.HttpRequestMessageExtensions.SendAsync``1(System.Net.Http.HttpRequestMessage,System.Threading.CancellationToken)">
+            <summary>
+                Send the supplied HttpRequestMessage, and get a response back
+            </summary>
+            <typeparam name="TResponse">The Type to read into</typeparam>
+            <param name="httpRequestMessage">HttpRequestMessage</param>
+            <param name="cancellationToken">CancellationToken</param>
+            <returns>the deserialized object of type T or default(T)</returns>
+        </member>
+        <member name="M:Dapplo.HttpExtensions.HttpRequestMessageExtensions.SendAsync``1(System.Net.Http.HttpRequestMessage,System.Net.Http.HttpClient,System.Threading.CancellationToken)">
+            <summary>
+                Send the supplied HttpRequestMessage, and get a response back
+            </summary>
+            <typeparam name="TResponse">The Type to read into</typeparam>
+            <param name="httpRequestMessage">HttpRequestMessage</param>
+            <param name="httpClient">HttpClient</param>
+            <param name="cancellationToken">CancellationToken</param>
+            <returns>the deserialized object of type T or default(T)</returns>
+        </member>
+        <member name="M:Dapplo.HttpExtensions.HttpRequestMessageExtensions.SendAsync(System.Net.Http.HttpRequestMessage,System.Net.Http.HttpClient,System.Threading.CancellationToken)">
+            <summary>
+                Send the supplied HttpRequestMessage, ignoring the response
+            </summary>
+            <param name="httpRequestMessage">HttpRequestMessage</param>
+            <param name="httpClient">HttpClient</param>
+            <param name="cancellationToken">CancellationToken</param>
+        </member>
+        <member name="T:Dapplo.HttpExtensions.HttpResponse">
+            <summary>
+                This container can be used to get the details of a response.
+                You can specify your own container, by using the HttpAttribute.
+            </summary>
+        </member>
+        <member name="P:Dapplo.HttpExtensions.HttpResponse.ContentType">
+            <summary>
+                The Content-Type of the response
+                Will be filled due to the annotation
+            </summary>
+        </member>
+        <member name="P:Dapplo.HttpExtensions.HttpResponse.Headers">
+            <summary>
+                The reponse headers
+                Will be filled due to the annotation
+            </summary>
+        </member>
+        <member name="P:Dapplo.HttpExtensions.HttpResponse.StatusCode">
+            <summary>
+                The response http status code
+                Will be filled due to the annotation
+            </summary>
+        </member>
+        <member name="T:Dapplo.HttpExtensions.HttpResponseWithError`1">
+            <summary>
+                This container can be used to get the details of a response without content but with a potential error
+            </summary>
+            <typeparam name="TErrorResponse">Type for the error response</typeparam>
+        </member>
+        <member name="P:Dapplo.HttpExtensions.HttpResponseWithError`1.ErrorResponse">
+            <summary>
+                The response if there was an error
+                Will be filled due to the annotation
+            </summary>
+        </member>
+        <member name="P:Dapplo.HttpExtensions.HttpResponseWithError`1.HasError">
+            <summary>
+                Was there an error?
+            </summary>
+        </member>
+        <member name="T:Dapplo.HttpExtensions.HttpResponse`1">
+            <summary>
+                This container can be used to get the details of a response.
+            </summary>
+            <typeparam name="TResponse">Type for the normal response</typeparam>
+        </member>
+        <member name="P:Dapplo.HttpExtensions.HttpResponse`1.Response">
+            <summary>
+                The response, if there was no error
+                Will be filled due to the annotation
+            </summary>
+        </member>
+        <member name="T:Dapplo.HttpExtensions.HttpResponse`2">
+            <summary>
+                This container can be used to get the details of a response.
+                It also makes it possible to process the error information, and eventually do something different.
+                You can specify your own container, by using the HttpAttribute.
+            </summary>
+            <typeparam name="TResponse">Type for the normal response</typeparam>
+            <typeparam name="TErrorResponse">Type for the error response</typeparam>
+        </member>
+        <member name="P:Dapplo.HttpExtensions.HttpResponse`2.Response">
+            <summary>
+                The response, if there was no error
+                Will be filled due to the annotation
+            </summary>
+        </member>
+        <member name="T:Dapplo.HttpExtensions.HttpResponseMessageExtensions">
+            <summary>
+                Extensions for the HttpResponseMessage class
+            </summary>
+        </member>
+        <member name="M:Dapplo.HttpExtensions.HttpResponseMessageExtensions.GetAsAsync``1(System.Net.Http.HttpResponseMessage,System.Threading.CancellationToken)">
+            <summary>
+                Extension method reading the HttpResponseMessage to a Type object
+                Currently we support Json objects which are annotated with the DataContract/DataMember attributes
+                We might support other object, e.g MemoryStream, Bitmap etc soon
+            </summary>
+            <typeparam name="TResponse">The Type to read into</typeparam>
+            <param name="httpResponseMessage">HttpResponseMessage</param>
+            <param name="cancellationToken">CancellationToken</param>
+            <returns>the deserialized object of type T or default(T)</returns>
+        </member>
+        <member name="M:Dapplo.HttpExtensions.HttpResponseMessageExtensions.HandleErrorAsync(System.Net.Http.HttpResponseMessage)">
+            <summary>
+                Simplified error handling, this makes sure the uri and response are logged
+            </summary>
+            <param name="httpResponseMessage">HttpResponseMessage</param>
+            <returns>string with the error content if HttpBehaviour.ThrowErrorOnNonSuccess = false</returns>
+        </member>
+        <member name="M:Dapplo.HttpExtensions.HttpResponseMessageExtensions.TryFindTarget(System.Collections.Generic.IEnumerable{System.Reflection.PropertyInfo},Dapplo.HttpExtensions.Support.HttpParts,System.Reflection.PropertyInfo@)">
+            <summary>
+                Find the PropertyInfo for the matching property
+            </summary>
+            <param name="properties">Ienumerable with PropertyInfo</param>
+            <param name="part">HttpParts specifying which property to find</param>
+            <param name="propertyInfo">PropertyInfo out parameter</param>
+            <returns>bool if found</returns>
+        </member>
+        <member name="T:Dapplo.HttpExtensions.IChangeableHttpBehaviour">
+            <summary>
+                This interface extends the IHttpBehaviour but makes it possible to change the values.
+                A use-case would be to call Clone on the IHttpBehaviour and modify the settings, return/assign the new value to a
+                IHttpBehaviour
+                This would be needed to pass the IHttpBehaviour via a CallContext.
+            </summary>
+        </member>
+        <member name="P:Dapplo.HttpExtensions.IChangeableHttpBehaviour.DefaultEncoding">
+            <summary>
+                The default encoding which is used wherever an encoding is specified.
+                The default is set to Encoding.UTF8
+            </summary>
+        </member>
+        <member name="P:Dapplo.HttpExtensions.IChangeableHttpBehaviour.DownloadProgress">
+            <summary>
+                Action which is called to notify of download progress.
+                Only used when using non-string content like Bitmaps or MemoryStreams.
+                Also the UseProgressStream needs to be true for this download progress
+            </summary>
+        </member>
+        <member name="P:Dapplo.HttpExtensions.IChangeableHttpBehaviour.HttpCompletionOption">
+            <summary>
+                This can be used to change the behaviour of Http operation, default is to read the complete response.
+            </summary>
+        </member>
+        <member name="P:Dapplo.HttpExtensions.IChangeableHttpBehaviour.HttpContentConverters">
+            <summary>
+                This is the list of IHttpContentConverters which is used when converting from/to HttpContent
+            </summary>
+        </member>
+        <member name="P:Dapplo.HttpExtensions.IChangeableHttpBehaviour.HttpSettings">
+            <summary>
+                Pass your HttpSettings here, which will be used to create the HttpClient
+                If not specified, the HttpSettings.GlobalSettings will be used
+            </summary>
+        </member>
+        <member name="P:Dapplo.HttpExtensions.IChangeableHttpBehaviour.JsonSerializer">
+            <summary>
+                This is used to de- serialize Json, can be overwritten by your own implementation.
+                By default, also when empty, the SimpleJsonSerializer is used.
+            </summary>
+        </member>
+        <member name="P:Dapplo.HttpExtensions.IChangeableHttpBehaviour.OnHttpClientCreated">
+            <summary>
+                An action which can modify the HttpClient which is generated in the HttpClientFactory.
+                Use cases for this, might be adding a header or other settings for specific cases
+            </summary>
+        </member>
+        <member name="P:Dapplo.HttpExtensions.IChangeableHttpBehaviour.OnHttpContentCreated">
+            <summary>
+                An Func which can modify the HttpContent right before it's used to start the request.
+                This can be used to add a specific header, e.g. set a filename etc, or return a completely different HttpContent
+                type
+            </summary>
+        </member>
+        <member name="P:Dapplo.HttpExtensions.IChangeableHttpBehaviour.OnHttpMessageHandlerCreated">
+            <summary>
+                An Func which can modify or wrap the HttpMessageHandler which is generated in the HttpMessageHandlerFactory.
+                Use cases for this, might be if you have very specify settings which can't be set via the IHttpSettings
+                Or you want to add additional behaviour (extend DelegatingHandler!!) like the OAuthDelegatingHandler
+            </summary>
+        </member>
+        <member name="P:Dapplo.HttpExtensions.IChangeableHttpBehaviour.OnHttpRequestMessageCreated">
+            <summary>
+                An Func which can modify the HttpRequestMessage right before it's used to start the request.
+                This can be used to add a specific header, which should not be for all requests.
+                As the called func has access to HttpRequestMessage with the content, uri and method this is quite usefull, it can
+                return a completely different HttpRequestMessage
+            </summary>
+        </member>
+        <member name="P:Dapplo.HttpExtensions.IChangeableHttpBehaviour.ReadBufferSize">
+            <summary>
+                Specify the buffer for reading operations
+            </summary>
+        </member>
+        <member name="P:Dapplo.HttpExtensions.IChangeableHttpBehaviour.ThrowOnError">
+            <summary>
+                If a request gets a response which has a HTTP status code which is an error, it would normally THROW an exception.
+                Sometimes you would still want the response, settings this to false would allow this.
+                This can be ignored for all HttpResponse returning methods.
+            </summary>
+        </member>
+        <member name="P:Dapplo.HttpExtensions.IChangeableHttpBehaviour.UploadProgress">
+            <summary>
+                Action which is called to notify of upload progress.
+                Only used when using non-string content like Bitmaps or MemoryStreams.
+                Also the UseProgressStream needs to be true for this upload progress
+            </summary>
+        </member>
+        <member name="P:Dapplo.HttpExtensions.IChangeableHttpBehaviour.UseProgressStream">
+            <summary>
+                Whenever a post is made to upload memorystream or bitmaps, this value is used to decide:
+                true: ProgressStreamContent is used, instead of StreamContent
+            </summary>
+        </member>
+        <member name="P:Dapplo.HttpExtensions.IChangeableHttpBehaviour.CookieContainer">
+            <summary>
+                This cookie container will be assed when creating the HttpMessageHandler and UseCookies is true
+            </summary>
+        </member>
+        <member name="P:Dapplo.HttpExtensions.IChangeableHttpBehaviour.ValidateResponseContentType">
+            <summary>
+                Check if the response has the expected content-type, when servers are used that are not following specifications
+                this should be set to false
+            </summary>
+        </member>
+        <member name="P:Dapplo.HttpExtensions.IChangeableHttpBehaviour.RequestConfigurations">
+            <inheritdoc />
+        </member>
+        <member name="T:Dapplo.HttpExtensions.IHttpBehaviour">
+            <summary>
+                The IHttpBehaviour is used to control the behaviour of all operations in the HttpExtensions library.
+            </summary>
+        </member>
+        <member name="P:Dapplo.HttpExtensions.IHttpBehaviour.RequestConfigurations">
+            <summary>
+                Configuration for different parts of the library, or your own implementations, which can be set on a thread/request
+                base.
+                For missing configurations the default is taken.
+            </summary>
+        </member>
+        <member name="P:Dapplo.HttpExtensions.IHttpBehaviour.DefaultEncoding">
+            <summary>
+                The default encoding which is used wherever an encoding is specified.
+                The default is set to Encoding.UTF8
+            </summary>
+        </member>
+        <member name="P:Dapplo.HttpExtensions.IHttpBehaviour.DownloadProgress">
+            <summary>
+                Action which is called to notify of download progress.
+                Only used when using non-string content like Bitmaps or MemoryStreams.
+                Also the UseProgressStream needs to be true for this download progress
+            </summary>
+        </member>
+        <member name="P:Dapplo.HttpExtensions.IHttpBehaviour.HttpCompletionOption">
+            <summary>
+                This can be used to change the behaviour of Http operation, default is to read the complete response.
+            </summary>
+        </member>
+        <member name="P:Dapplo.HttpExtensions.IHttpBehaviour.HttpContentConverters">
+            <summary>
+                This is the list of IHttpContentConverters which is used when converting from/to HttpContent
+            </summary>
+        </member>
+        <member name="P:Dapplo.HttpExtensions.IHttpBehaviour.HttpSettings">
+            <summary>
+                Pass your HttpSettings here, which will be used to create the HttpClient
+                If not specified, the HttpSettings.GlobalSettings will be used
+            </summary>
+        </member>
+        <member name="P:Dapplo.HttpExtensions.IHttpBehaviour.JsonSerializer">
+            <summary>
+                This is used to de- serialize Json, can be overwritten by your own implementation.
+                By default, also when empty, the SimpleJsonSerializer is used.
+            </summary>
+        </member>
+        <member name="P:Dapplo.HttpExtensions.IHttpBehaviour.OnHttpClientCreated">
+            <summary>
+                An action which can modify the HttpClient which is generated in the HttpClientFactory.
+                Use cases for this, might be adding a header or other settings for specific cases
+            </summary>
+        </member>
+        <member name="P:Dapplo.HttpExtensions.IHttpBehaviour.OnHttpContentCreated">
+            <summary>
+                An Func which can modify the HttpContent right before it's used to start the request.
+                This can be used to add a specific header, e.g. set a filename etc, or return a completely different HttpContent
+                type
+            </summary>
+        </member>
+        <member name="P:Dapplo.HttpExtensions.IHttpBehaviour.OnHttpMessageHandlerCreated">
+            <summary>
+                An Func which can modify or wrap the HttpMessageHandler which is generated in the HttpMessageHandlerFactory.
+                Use cases for this, might be if you have very specify settings which can't be set via the IHttpSettings
+                Or you want to add additional behaviour (extend DelegatingHandler!!) like the OAuthDelegatingHandler
+            </summary>
+        </member>
+        <member name="P:Dapplo.HttpExtensions.IHttpBehaviour.OnHttpRequestMessageCreated">
+            <summary>
+                An Func which can modify the HttpRequestMessage right before it's used to start the request.
+                This can be used to add a specific header, which should not be for all requests.
+                As the called func has access to HttpRequestMessage with the content, uri and method this is quite usefull, it can
+                return a completely different HttpRequestMessage
+            </summary>
+        </member>
+        <member name="P:Dapplo.HttpExtensions.IHttpBehaviour.ReadBufferSize">
+            <summary>
+                Specify the buffer for reading operations
+            </summary>
+        </member>
+        <member name="P:Dapplo.HttpExtensions.IHttpBehaviour.ThrowOnError">
+            <summary>
+                If a request gets a response which has a HTTP status code which is an error, it would normally THROW an exception.
+                Sometimes you would still want the response, settings this to false would allow this.
+                This can be ignored for all HttpResponse returning methods.
+            </summary>
+        </member>
+        <member name="P:Dapplo.HttpExtensions.IHttpBehaviour.UploadProgress">
+            <summary>
+                Action which is called to notify of upload progress, be sure to handle the UI thread issues yourself.
+                Only used when using non-string content like Bitmaps or MemoryStreams.
+                Also the UseProgressStream needs to be true for this upload progress
+            </summary>
+        </member>
+        <member name="P:Dapplo.HttpExtensions.IHttpBehaviour.UseProgressStream">
+            <summary>
+                Whenever a post is made to upload memorystream or bitmaps, this value is used to decide:
+                true: ProgressStream is used, instead of Stream
+            </summary>
+        </member>
+        <member name="P:Dapplo.HttpExtensions.IHttpBehaviour.ValidateResponseContentType">
+            <summary>
+                Check if the response has the expected content-type, when servers are used that are not following specifications
+                this should be set to false
+            </summary>
+        </member>
+        <member name="P:Dapplo.HttpExtensions.IHttpBehaviour.CookieContainer">
+            <summary>
+                This cookie container will be assed when creating the HttpMessageHandler and HttpSettings.UseCookies is true
+            </summary>
+        </member>
+        <member name="M:Dapplo.HttpExtensions.IHttpBehaviour.MakeCurrent">
+            <summary>
+                Set this IHttpBehaviour on the CallContext
+            </summary>
+        </member>
+        <member name="M:Dapplo.HttpExtensions.IHttpBehaviour.ShallowClone">
+            <summary>
+                Make a memberwise clone of the object, this is "shallow".
+            </summary>
+            <returns>"Shallow" Cloned instance of IChangeableHttpBehaviour</returns>
+        </member>
+        <member name="T:Dapplo.HttpExtensions.IHttpContentConverter">
+            <summary>
+                This interface is used for all
+            </summary>
+        </member>
+        <member name="P:Dapplo.HttpExtensions.IHttpContentConverter.Order">
+            <summary>
+                Specify the order in that this IHttpContentConverter is used
+            </summary>
+        </member>
+        <member name="M:Dapplo.HttpExtensions.IHttpContentConverter.AddAcceptHeadersForType(System.Type,System.Net.Http.HttpRequestMessage)">
+            <summary>
+                This will add accept headers depending on the result type
+            </summary>
+            <param name="resultType">Type to read into</param>
+            <param name="httpRequestMessage">HttpClient for the response headers</param>
+        </member>
+        <member name="M:Dapplo.HttpExtensions.IHttpContentConverter.CanConvertFromHttpContent(System.Type,System.Net.Http.HttpContent)">
+            <summary>
+                Check if this IHttpContentProcessor can convert the HttpContent into the specified type
+            </summary>
+            <param name="typeToConvertTo">Type from which a conversion should be made</param>
+            <param name="httpContent">HttpContent object to process</param>
+            <returns>true if this processor can do the conversion</returns>
+        </member>
+        <member name="M:Dapplo.HttpExtensions.IHttpContentConverter.CanConvertToHttpContent(System.Type,System.Object)">
+            <summary>
+                Check if this IHttpContentProcessor can convert the specified type to a HttpContent
+            </summary>
+            <param name="typeToConvertFrom">Type to convert</param>
+            <param name="content">Content to place into a HttpContent</param>
+            <returns>true if this processor can do the conversion</returns>
+        </member>
+        <member name="M:Dapplo.HttpExtensions.IHttpContentConverter.ConvertFromHttpContentAsync(System.Type,System.Net.Http.HttpContent,System.Threading.CancellationToken)">
+            <summary>
+                Create the target object from the supplied HttpContent
+            </summary>
+            <param name="resultType">Typ to process the HttpContent to</param>
+            <param name="httpContent">HttpContent</param>
+            <param name="cancellationToken">CancellationToken</param>
+            <returns>object of type resultType</returns>
+        </member>
+        <member name="M:Dapplo.HttpExtensions.IHttpContentConverter.ConvertToHttpContent(System.Type,System.Object)">
+            <summary>
+                Create HttpContent for the supplied object/type
+            </summary>
+            <param name="typeToConvert">Type of the content to convert</param>
+            <param name="content">Content to place into a HttpContent</param>
+            <returns>HttpContent</returns>
+        </member>
+        <member name="T:Dapplo.HttpExtensions.IHttpRequestConfiguration">
+            <summary>
+                This interface is the base interface for configuration information.
+                It makes it possible to supply configuration to different parts of the library during a request, where as a caller
+                you normally don't interact with directly.
+                The interface only specifies the name of the configuration, specific implementations should be used.
+                Instances of this interface are added to the HttpBehaviour, so they are available throughout a request.
+            </summary>
+        </member>
+        <member name="P:Dapplo.HttpExtensions.IHttpRequestConfiguration.Name">
+            <summary>
+                Name of the configuration, this should be unique
+            </summary>
+        </member>
+        <member name="T:Dapplo.HttpExtensions.IHttpSettings">
+            <summary>
+                Interface for the global settings, as the DefaultValue attributes are set this CAN be used with Dapplo.Config.
+                <br />
+                Best example would be:
+                <br />
+                <code>
+            [IniSection("Network"), Display(Description = "Network / HTTP Settings")]<br />
+            public interface IHttpConfig : IHttpSettings, IIniSection {<br />
+            }
+            </code>
+                <br />
+                (Yes, it's can be empty, the settings are in the IHttpSettings interface) and than assign the generated instance to
+                <see cref="T:Dapplo.HttpExtensions.HttpExtensionsGlobals" />
+            </summary>
+        </member>
+        <member name="P:Dapplo.HttpExtensions.IHttpSettings.AllowAutoRedirect">
+            <summary>
+                For more details, click
+                <a href="https://msdn.microsoft.com/en-us/library/system.net.http.httpclienthandler.allowautoredirect.aspx">here</a>
+            </summary>
+        </member>
+        <member name="P:Dapplo.HttpExtensions.IHttpSettings.Credentials">
+            <summary>
+                For more details, click
+                <a href="https://msdn.microsoft.com/en-us/library/system.net.http.httpclienthandler.credentials.aspx">here</a>
+            </summary>
+        </member>
+        <member name="P:Dapplo.HttpExtensions.IHttpSettings.ClientCertificateOptions">
+            <summary>
+                For more details, click
+                <a href="https://msdn.microsoft.com/en-us/library/system.net.http.httpclienthandler.clientcertificateoptions.aspx">here</a>
+            </summary>
+        </member>
+        <member name="P:Dapplo.HttpExtensions.IHttpSettings.DefaultDecompressionMethods">
+            <summary>
+                For more details, click
+                <a href="https://msdn.microsoft.com/en-us/library/system.net.http.httpclienthandler.automaticdecompression.aspx">here</a>
+            </summary>
+        </member>
+        <member name="P:Dapplo.HttpExtensions.IHttpSettings.DefaultUserAgent">
+            <summary>
+                The default User-Agent value to use, a lot of services don't like it when this is empty or the behaviour depends on
+                the value
+            </summary>
+        </member>
+        <member name="P:Dapplo.HttpExtensions.IHttpSettings.Expect100Continue">
+            <summary>
+                When true the configured proxy will used the default user credentials
+            </summary>
+        </member>
+        <member name="P:Dapplo.HttpExtensions.IHttpSettings.MaxAutomaticRedirections">
+            <summary>
+                For more details, click
+                <a href="https://msdn.microsoft.com/en-us/library/system.net.http.httpclienthandler.maxautomaticredirections.aspx">here</a>
+                and <a href="https://msdn.microsoft.com/en-us/library/system.net.httpwebrequest.allowautoredirect.aspx">here</a>
+            </summary>
+        </member>
+        <member name="P:Dapplo.HttpExtensions.IHttpSettings.MaxResponseContentBufferSize">
+            <summary>
+                For more details, click
+                <a href="https://msdn.microsoft.com/en-us/library/system.net.http.httpclient.maxresponsecontentbuffersize.aspx">here</a>
+            </summary>
+        </member>
+        <member name="P:Dapplo.HttpExtensions.IHttpSettings.PreAuthenticate">
+            <summary>
+                For more details, click
+                <a href="https://msdn.microsoft.com/en-us/library/system.net.http.httpclienthandler.preauthenticate.aspx">here</a>
+                And
+                <a href="http://weblog.west-wind.com/posts/2010/Feb/18/NET-WebRequestPreAuthenticate-not-quite-what-it-sounds-like">here</a>
+            </summary>
+        </member>
+        <member name="P:Dapplo.HttpExtensions.IHttpSettings.RequestTimeout">
+            <summary>
+                For more details, click
+                <a href="https://msdn.microsoft.com/en-us/library/system.net.http.httpclient.timeout.aspx">here</a>
+            </summary>
+        </member>
+        <member name="P:Dapplo.HttpExtensions.IHttpSettings.UseCookies">
+            <summary>
+                For more details, click
+                <a href="https://msdn.microsoft.com/en-us/library/system.net.http.httpclienthandler.usecookies.aspx">here</a>
+                And
+                <a href="https://msdn.microsoft.com/en-us/library/system.net.http.httpclienthandler.cookiecontainer.aspx">here</a>
+            </summary>
+        </member>
+        <member name="P:Dapplo.HttpExtensions.IHttpSettings.UseDefaultCredentials">
+            <summary>
+                When true every http request will supply the default user credentials when the server asks for them
+            </summary>
+        </member>
+        <member name="M:Dapplo.HttpExtensions.IHttpSettings.ShallowClone">
+            <summary>
+                Make a memberwise clone of the object, this is "shallow".
+            </summary>
+            <returns>"Shallow" Cloned instance of IChangeableHttpBehaviour</returns>
+        </member>
+        <member name="T:Dapplo.HttpExtensions.IJsonSerializer">
+            <summary>
+                This interface makes it possible to change the Json serializer which is used for de- serializing JSON.
+                The default implementation for this, SimpleJson, is included in this project
+            </summary>
+        </member>
+        <member name="M:Dapplo.HttpExtensions.IJsonSerializer.CanSerializeTo(System.Type)">
+            <summary>
+                Test if the specified type can be serialized to JSON
+            </summary>
+            <param name="sourceType">Type to check</param>
+            <returns>bool</returns>
+        </member>
+        <member name="M:Dapplo.HttpExtensions.IJsonSerializer.CanDeserializeFrom(System.Type)">
+            <summary>
+                Test if the specified type can be deserialized
+            </summary>
+            <param name="targetType">Type to check</param>
+            <returns>bool</returns>
+        </member>
+        <member name="M:Dapplo.HttpExtensions.IJsonSerializer.Deserialize(System.Type,System.String)">
+            <summary>
+                Deserialize a string with Json to the specified type
+            </summary>
+            <param name="targetType">Type to deserialize to</param>
+            <param name="jsonString">string with json content</param>
+            <returns>an object of type targetType or null</returns>
+        </member>
+        <member name="M:Dapplo.HttpExtensions.IJsonSerializer.Serialize``1(``0)">
+            <summary>
+                Serialize the generic object into a string with Json content
+            </summary>
+            <typeparam name="T">Type to serialize</typeparam>
+            <param name="jsonObject">Object to serialize</param>
+            <returns>string with Json content</returns>
+        </member>
+        <member name="T:Dapplo.HttpExtensions.MiscExtensions">
+            <summary>
+                Misc extensions
+            </summary>
+        </member>
+        <member name="M:Dapplo.HttpExtensions.MiscExtensions.ToQueryString``1(System.Collections.Generic.IEnumerable{System.Collections.Generic.KeyValuePair{System.String,``0}})">
+            <summary>
+                Create a query string from a list of keyValuePairs
+            </summary>
+            <typeparam name="T">type for the value, sometimes it's easier to let this method call ToString on your type.</typeparam>
+            <param name="keyValuePairs">list of keyValuePair with string,T</param>
+            <returns>name1=value1&amp;name2=value2 etc...</returns>
+        </member>
+        <member name="T:Dapplo.HttpExtensions.Support.ContentItem">
+            <summary>
+                This class contains all the information on the content that will be used to build a request
+            </summary>
+        </member>
+        <member name="T:Dapplo.HttpExtensions.Support.HttpPartAttribute">
+            <summary>
+                This attribute marks a property in a HttpRequestAttributed or HttpResponseAttribute class as being a part for
+                processing
+            </summary>
+        </member>
+        <member name="M:Dapplo.HttpExtensions.Support.HttpPartAttribute.#ctor(Dapplo.HttpExtensions.Support.HttpParts)">
+            <summary>
+                Constructor
+            </summary>
+            <param name="part">HttpParts</param>
+        </member>
+        <member name="P:Dapplo.HttpExtensions.Support.HttpPartAttribute.Order">
+            <summary>
+                Order of the content when using multi-part content
+            </summary>
+        </member>
+        <member name="P:Dapplo.HttpExtensions.Support.HttpPartAttribute.Part">
+            <summary>
+                Use this to specify what the property is representing
+            </summary>
+        </member>
+        <member name="T:Dapplo.HttpExtensions.Support.HttpParts">
+            <summary>
+                Marker for the response
+            </summary>
+        </member>
+        <member name="F:Dapplo.HttpExtensions.Support.HttpParts.None">
+            <summary>
+                Default value.
+            </summary>
+        </member>
+        <member name="F:Dapplo.HttpExtensions.Support.HttpParts.MultipartBoundary">
+            <summary>
+                The property specifies the boundary of a multi-part
+            </summary>
+        </member>
+        <member name="F:Dapplo.HttpExtensions.Support.HttpParts.RequestMultipartName">
+            <summary>
+                The property specifies the name of the content in a multi-part post
+            </summary>
+        </member>
+        <member name="F:Dapplo.HttpExtensions.Support.HttpParts.RequestMultipartFilename">
+            <summary>
+                The property specifies the filename of the content in a multi-part post
+            </summary>
+        </member>
+        <member name="F:Dapplo.HttpExtensions.Support.HttpParts.RequestContent">
+            <summary>
+                Specifies the content for uploading
+            </summary>
+        </member>
+        <member name="F:Dapplo.HttpExtensions.Support.HttpParts.RequestContentType">
+            <summary>
+                Specifies the content-type for uploading
+            </summary>
+        </member>
+        <member name="F:Dapplo.HttpExtensions.Support.HttpParts.RequestHeaders">
+            <summary>
+                Specifies the request headers to send on the request, this should be of type IDictionary where key is string and
+                value is string
+            </summary>
+        </member>
+        <member name="F:Dapplo.HttpExtensions.Support.HttpParts.ResponseContent">
+            <summary>
+                The property will get the response content, HttpResponseMessage can also be used
+            </summary>
+        </member>
+        <member name="F:Dapplo.HttpExtensions.Support.HttpParts.ResponseErrorContent">
+            <summary>
+                The property will get the response content, when an error occured
+            </summary>
+        </member>
+        <member name="F:Dapplo.HttpExtensions.Support.HttpParts.ResponseContentType">
+            <summary>
+                Specifies the content-type, either for uploading or for the response
+            </summary>
+        </member>
+        <member name="F:Dapplo.HttpExtensions.Support.HttpParts.ResponseStatuscode">
+            <summary>
+                The Http-Status code, should be of type HttpStatusCode
+            </summary>
+        </member>
+        <member name="F:Dapplo.HttpExtensions.Support.HttpParts.ResponseHeaders">
+            <summary>
+                Marks HttpResponseHeaders,
+            </summary>
+        </member>
+        <member name="T:Dapplo.HttpExtensions.Support.HttpRequestAttribute">
+            <summary>
+                This attribute marks a class as "http content" for a request
+            </summary>
+        </member>
+        <member name="P:Dapplo.HttpExtensions.Support.HttpRequestAttribute.MultiPart">
+            <summary>
+                "Force" multi-part, even if there is only one content
+            </summary>
+        </member>
+        <member name="T:Dapplo.HttpExtensions.Support.HttpResponseAttribute">
+            <summary>
+                This attribute marks a class as "http content" for a response
+            </summary>
+        </member>
+        <member name="T:Dapplo.HttpExtensions.Support.HttpSettings">
+            <summary>
+                This class contains the default settings for the proxy / httpclient
+                These can be modified, are on a global "application" scale.
+                Most have their normal defaults, which would also normally be used, some have special settings
+                The default values and the property descriptions are in the IHttpSettings (which can be used by Dapplo.Config)
+            </summary>
+        </member>
+        <member name="P:Dapplo.HttpExtensions.Support.HttpSettings.UseCookies">
+            <inheritdoc />
+        </member>
+        <member name="P:Dapplo.HttpExtensions.Support.HttpSettings.UseDefaultCredentials">
+            <inheritdoc />
+        </member>
+        <member name="P:Dapplo.HttpExtensions.Support.HttpSettings.Credentials">
+            <inheritdoc />
+        </member>
+        <member name="P:Dapplo.HttpExtensions.Support.HttpSettings.ClientCertificateOptions">
+            <inheritdoc />
+        </member>
+        <member name="P:Dapplo.HttpExtensions.Support.HttpSettings.RequestTimeout">
+            <inheritdoc />
+        </member>
+        <member name="P:Dapplo.HttpExtensions.Support.HttpSettings.AllowAutoRedirect">
+            <inheritdoc />
+        </member>
+        <member name="P:Dapplo.HttpExtensions.Support.HttpSettings.DefaultDecompressionMethods">
+            <inheritdoc />
+        </member>
+        <member name="P:Dapplo.HttpExtensions.Support.HttpSettings.PreAuthenticate">
+            <inheritdoc />
+        </member>
+        <member name="P:Dapplo.HttpExtensions.Support.HttpSettings.MaxAutomaticRedirections">
+            <inheritdoc />
+        </member>
+        <member name="P:Dapplo.HttpExtensions.Support.HttpSettings.MaxResponseContentBufferSize">
+            <inheritdoc />
+        </member>
+        <member name="P:Dapplo.HttpExtensions.Support.HttpSettings.DefaultUserAgent">
+            <inheritdoc />
+        </member>
+        <member name="P:Dapplo.HttpExtensions.Support.HttpSettings.Expect100Continue">
+            <inheritdoc />
+        </member>
+        <member name="M:Dapplo.HttpExtensions.Support.HttpSettings.ShallowClone">
+            <summary>
+                Return a memberwise clone of the HttpSettings.
+                This is needed by the HttpBehaviour to prevent that a modification of a copy is changing the global settings!
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:Dapplo.HttpExtensions.Support.MediaTypes">
+            <summary>
+                Use this enum for the creating the accept header or checking the content-type
+            </summary>
+        </member>
+        <member name="F:Dapplo.HttpExtensions.Support.MediaTypes.Json">
+            <summary>
+                Used for Json
+            </summary>
+        </member>
+        <member name="F:Dapplo.HttpExtensions.Support.MediaTypes.Xml">
+            <summary>
+                Used for Xml
+            </summary>
+        </member>
+        <member name="F:Dapplo.HttpExtensions.Support.MediaTypes.XmlReadable">
+            <summary>
+                Used for Xml
+            </summary>
+        </member>
+        <member name="F:Dapplo.HttpExtensions.Support.MediaTypes.Html">
+            <summary>
+                Used for Html
+            </summary>
+        </member>
+        <member name="F:Dapplo.HttpExtensions.Support.MediaTypes.Txt">
+            <summary>
+                Used for Text
+            </summary>
+        </member>
+        <member name="F:Dapplo.HttpExtensions.Support.MediaTypes.WwwFormUrlEncoded">
+            <summary>
+                Used for a www form which is url encoded
+            </summary>
+        </member>
+        <member name="F:Dapplo.HttpExtensions.Support.MediaTypes.Gif">
+            <summary>
+                Image type gif
+            </summary>
+        </member>
+        <member name="F:Dapplo.HttpExtensions.Support.MediaTypes.Jpeg">
+            <summary>
+                Image type jpeg
+            </summary>
+        </member>
+        <member name="F:Dapplo.HttpExtensions.Support.MediaTypes.Png">
+            <summary>
+                Image type png
+            </summary>
+        </member>
+        <member name="F:Dapplo.HttpExtensions.Support.MediaTypes.Bmp">
+            <summary>
+                Image type bmp
+            </summary>
+        </member>
+        <member name="F:Dapplo.HttpExtensions.Support.MediaTypes.Tiff">
+            <summary>
+                Image type tiff
+            </summary>
+        </member>
+        <member name="F:Dapplo.HttpExtensions.Support.MediaTypes.Icon">
+            <summary>
+                Image type Icon (.ico)
+            </summary>
+        </member>
+        <member name="F:Dapplo.HttpExtensions.Support.MediaTypes.Svg">
+            <summary>
+                Image type SVG
+            </summary>
+        </member>
+        <member name="F:Dapplo.HttpExtensions.Support.MediaTypes.Rss">
+            <summary>
+                Rss feed (not Atom)
+            </summary>
+        </member>
+        <member name="T:Dapplo.HttpExtensions.Support.ProgressStream">
+            <summary>
+                Wraps another stream and provides reporting for when bytes are read or written to the stream.
+            </summary>
+        </member>
+        <member name="M:Dapplo.HttpExtensions.Support.ProgressStream.#ctor(System.IO.Stream)">
+            <summary>
+                Creates a new ProgressStream supplying the stream for it to report on.
+            </summary>
+            <param name="streamToReportOn">The underlying stream that will be reported on when bytes are read or written.</param>
+        </member>
+        <member name="P:Dapplo.HttpExtensions.Support.ProgressStream.BytesRead">
+            <summary>
+                Called when bytes are read from the stream.
+            </summary>
+        </member>
+        <member name="P:Dapplo.HttpExtensions.Support.ProgressStream.BytesWritten">
+            <summary>
+                RaisedCalled when bytes are written to the stream.
+            </summary>
+        </member>
+        <member name="P:Dapplo.HttpExtensions.Support.ProgressStream.BytesMoved">
+            <summary>
+                RaisedCalled when bytes are either read or written to the stream.
+            </summary>
+        </member>
+        <member name="M:Dapplo.HttpExtensions.Support.ProgressStream.OnBytesRead(System.Int32)">
+            <summary>
+                Called when bytes are read.
+            </summary>
+            <param name="bytesMoved">int with the number of bytes</param>
+        </member>
+        <member name="M:Dapplo.HttpExtensions.Support.ProgressStream.OnBytesWritten(System.Int32)">
+            <summary>
+                Called when bytes are written
+            </summary>
+            <param name="bytesMoved">int with the number of bytes</param>
+        </member>
+        <member name="M:Dapplo.HttpExtensions.Support.ProgressStream.OnBytesMoved(System.Int32,System.Boolean)">
+            <summary>
+                Called when bytes are moved
+            </summary>
+            <param name="bytesMoved">int with the number of bytes which are moved</param>
+            <param name="isRead">true if the bytes were read, false if written</param>
+        </member>
+        <member name="P:Dapplo.HttpExtensions.Support.ProgressStream.CanRead">
+            <inheritdoc />
+        </member>
+        <member name="P:Dapplo.HttpExtensions.Support.ProgressStream.CanSeek">
+            <inheritdoc />
+        </member>
+        <member name="P:Dapplo.HttpExtensions.Support.ProgressStream.CanWrite">
+            <inheritdoc />
+        </member>
+        <member name="M:Dapplo.HttpExtensions.Support.ProgressStream.Flush">
+            <inheritdoc />
+        </member>
+        <member name="P:Dapplo.HttpExtensions.Support.ProgressStream.Length">
+            <inheritdoc />
+        </member>
+        <member name="P:Dapplo.HttpExtensions.Support.ProgressStream.Position">
+            <inheritdoc />
+        </member>
+        <member name="M:Dapplo.HttpExtensions.Support.ProgressStream.Read(System.Byte[],System.Int32,System.Int32)">
+            <inheritdoc />
+        </member>
+        <member name="M:Dapplo.HttpExtensions.Support.ProgressStream.Seek(System.Int64,System.IO.SeekOrigin)">
+            <inheritdoc />
+        </member>
+        <member name="M:Dapplo.HttpExtensions.Support.ProgressStream.SetLength(System.Int64)">
+            <inheritdoc />
+        </member>
+        <member name="M:Dapplo.HttpExtensions.Support.ProgressStream.Write(System.Byte[],System.Int32,System.Int32)">
+            <inheritdoc />
+        </member>
+        <member name="T:Dapplo.HttpExtensions.Support.ProgressStreamReport">
+            <summary>
+                Contains the pertinent data for a ProgressStream Report event.
+            </summary>
+        </member>
+        <member name="M:Dapplo.HttpExtensions.Support.ProgressStreamReport.#ctor">
+            <summary>
+                Default constructor for ProgressStreamReport.
+            </summary>
+        </member>
+        <member name="M:Dapplo.HttpExtensions.Support.ProgressStreamReport.#ctor(System.Int32,System.Int64,System.Int64,System.Boolean)">
+            <summary>
+                Creates a new ProgressStreamReport initializing its members.
+            </summary>
+            <param name="bytesMoved">The number of bytes that were read/written to/from the stream.</param>
+            <param name="streamLength">The total length of the stream in bytes.</param>
+            <param name="streamPosition">The current position in the stream.</param>
+            <param name="wasRead">True if the bytes were read from the stream, false if they were written.</param>
+        </member>
+        <member name="P:Dapplo.HttpExtensions.Support.ProgressStreamReport.BytesMoved">
+            <summary>
+                The number of bytes that were read/written to/from the stream.
+            </summary>
+        </member>
+        <member name="P:Dapplo.HttpExtensions.Support.ProgressStreamReport.StreamLength">
+            <summary>
+                The total length of the stream in bytes, 0 if the stream isn't seekable
+            </summary>
+        </member>
+        <member name="P:Dapplo.HttpExtensions.Support.ProgressStreamReport.StreamPosition">
+            <summary>
+                The current position in the stream, 0 if the stream isn't seekable
+            </summary>
+        </member>
+        <member name="P:Dapplo.HttpExtensions.Support.ProgressStreamReport.WasRead">
+            <summary>
+                True if the bytes were read from the stream, false if they were written.
+            </summary>
+        </member>
+        <member name="T:Dapplo.HttpExtensions.UriActionExtensions">
+            <summary>
+                Uri extension which perform an action
+            </summary>
+        </member>
+        <member name="M:Dapplo.HttpExtensions.UriActionExtensions.DeleteAsync``1(System.Uri,System.Threading.CancellationToken)">
+            <summary>
+                Method to Delete content
+            </summary>
+            <typeparam name="TResponse">
+                the generic type to return the result into, use HttpContent or HttpResponseMessage to get those unprocessed
+            </typeparam>
+            <param name="uri">Uri to send the delete to</param>
+            <param name="cancellationToken">CancellationToken</param>
+            <returns>TResponse</returns>
+        </member>
+        <member name="M:Dapplo.HttpExtensions.UriActionExtensions.DeleteAsync(System.Uri,System.Threading.CancellationToken)">
+            <summary>
+                Method to Delete content
+            </summary>
+            <param name="uri">Uri to send the delete to</param>
+            <param name="cancellationToken">CancellationToken</param>
+            <returns>Task</returns>
+        </member>
+        <member name="M:Dapplo.HttpExtensions.UriActionExtensions.GetAsAsync``1(System.Uri,System.Threading.CancellationToken)">
+            <summary>
+                Get the response as the specified type
+            </summary>
+            <typeparam name="TResponse">Type to deserialize into</typeparam>
+            <param name="uri">An Uri to specify the download location</param>
+            <param name="cancellationToken">CancellationToken</param>
+            <returns>TResponse</returns>
+        </member>
+        <member name="M:Dapplo.HttpExtensions.UriActionExtensions.HeadAsync(System.Uri,System.Threading.CancellationToken)">
+            <summary>
+                Retrieve only the content headers, by using the HTTP HEAD method
+            </summary>
+            <param name="uri">Uri to get HEAD for</param>
+            <param name="cancellationToken">CancellationToken</param>
+            <returns>HttpContentHeaders</returns>
+        </member>
+        <member name="M:Dapplo.HttpExtensions.UriActionExtensions.LastModifiedAsync(System.Uri,System.Threading.CancellationToken)">
+            <summary>
+                Get LastModified for a URI
+            </summary>
+            <param name="uri">Uri</param>
+            <param name="cancellationToken">CancellationToken</param>
+            <returns>DateTime</returns>
+        </member>
+        <member name="M:Dapplo.HttpExtensions.UriActionExtensions.PostAsync``1(System.Uri,System.Object,System.Threading.CancellationToken)">
+            <summary>
+                Method to Post content
+            </summary>
+            <typeparam name="TResponse">
+                the generic type to return the result into, use HttpContent or HttpResponseMessage to get
+                those unprocessed
+            </typeparam>
+            <param name="uri">Uri to post to</param>
+            <param name="content">Content to post</param>
+            <param name="cancellationToken">CancellationToken</param>
+            <returns>TResponse</returns>
+        </member>
+        <member name="M:Dapplo.HttpExtensions.UriActionExtensions.PostAsync(System.Uri,System.Object,System.Threading.CancellationToken)">
+            <summary>
+                Method to Post content, ignore response
+            </summary>
+            <param name="uri">Uri to post to</param>
+            <param name="content">Content to post</param>
+            <param name="cancellationToken">CancellationToken</param>
+        </member>
+        <member name="M:Dapplo.HttpExtensions.UriActionExtensions.PutAsync``1(System.Uri,System.Object,System.Threading.CancellationToken)">
+            <summary>
+                Method to Put content
+            </summary>
+            <typeparam name="TResponse">
+                the generic type to return the result into, use HttpContent or HttpResponseMessage to get
+                those unprocessed
+            </typeparam>
+            <param name="uri">Uri to put to</param>
+            <param name="content">Content to put</param>
+            <param name="cancellationToken">CancellationToken</param>
+            <returns>TResponse</returns>
+        </member>
+        <member name="M:Dapplo.HttpExtensions.UriActionExtensions.PutAsync(System.Uri,System.Object,System.Threading.CancellationToken)">
+            <summary>
+                Method to Put content
+            </summary>
+            <param name="uri">Uri to put to</param>
+            <param name="content">Content to put</param>
+            <param name="cancellationToken">CancellationToken</param>
+            <returns>task</returns>
+        </member>
+        <member name="T:Dapplo.HttpExtensions.UriModifyExtensions">
+            <summary>
+                Uri extensions which modify an Uri (return a new one)
+            </summary>
+        </member>
+        <member name="M:Dapplo.HttpExtensions.UriModifyExtensions.AppendSegments(System.Uri,System.Object[])">
+            <summary>
+                Append path segment(s) to the specified Uri
+                When adding a segment the logic takes care that there is always one single slash separating the segments.
+                Null or empty segments are ignored.
+            </summary>
+            <param name="uri">Uri to extend</param>
+            <param name="segments">params with objects which will be converted to string and adding them as segments</param>
+            <returns>new Uri with segments added to the path</returns>
+        </member>
+        <member name="M:Dapplo.HttpExtensions.UriModifyExtensions.AppendSegments(System.Uri,System.Collections.Generic.IEnumerable{System.String})">
+            <summary>
+                Append segment(s) to the path of the specified Uri.
+                When adding a segment the logic takes care that there is always one single slash separating the segments.
+                Null or empty segments are ignored.
+            </summary>
+            <param name="uri">Uri to extend</param>
+            <param name="segments">IEnumerable of string with the segments which need to be added</param>
+            <returns>new Uri with segments added to the path</returns>
+        </member>
+        <member name="M:Dapplo.HttpExtensions.UriModifyExtensions.ExtendQuery``1(System.Uri,System.String,``0)">
+            <summary>
+                Adds query string value to an existing url, both absolute and relative URI's are supported.
+            </summary>
+            <code>
+                // returns "www.domain.com/test?param1=val1&amp;param2=val2&amp;param3=val3"
+                new Uri("www.domain.com/test?param1=val1").ExtendQuery(new Dictionary&lt;string, string&gt; { { "param2", "val2" }, { "param3", "val3" } }); 
+            
+                // returns "/test?param1=val1&amp;param2=val2&amp;param3=val3"
+                new Uri("/test?param1=val1").ExtendQuery(new Dictionary&lt;string, string&gt; { { "param2", "val2" }, { "param3", "val3" } }); 
+            </code>
+            <param name="uri">Uri to extend</param>
+            <param name="name">string name of value</param>
+            <param name="value">value</param>
+            <returns>Uri with extended query</returns>
+        </member>
+        <member name="M:Dapplo.HttpExtensions.UriModifyExtensions.ExtendQuery``1(System.Uri,System.Collections.Generic.IDictionary{System.String,``0})">
+            <summary>
+                Adds query string value to an existing url, both absolute and relative URI's are supported.
+            </summary>
+            <code>
+                // returns "www.domain.com/test?param1=val1&amp;param2=val2&amp;param3=val3"
+                new Uri("www.domain.com/test?param1=val1").ExtendQuery(new Dictionary&lt;string, string&gt; { { "param2", "val2" }, { "param3", "val3" } }); 
+            
+                // returns "/test?param1=val1&amp;param2=val2&amp;param3=val3"
+                new Uri("/test?param1=val1").ExtendQuery(new Dictionary&lt;string, string&gt; { { "param2", "val2" }, { "param3", "val3" } }); 
+            </code>
+            <param name="uri">Uri to extend</param>
+            <param name="values">IDictionary with values</param>
+            <returns>Uri with extended query</returns>
+        </member>
+        <member name="M:Dapplo.HttpExtensions.UriModifyExtensions.ExtendQuery``1(System.Uri,System.Collections.Generic.IEnumerable{System.Collections.Generic.KeyValuePair{System.String,``0}})">
+            <summary>
+                Adds query string value to an existing url, both absolute and relative URI's are supported.
+            </summary>
+            <param name="uri">Uri to extend</param>
+            <param name="values">IEnumerable of KeyValuePair with values</param>
+            <returns>Uri with extended query</returns>
+        </member>
+        <member name="M:Dapplo.HttpExtensions.UriModifyExtensions.ExtendQuery``1(System.Uri,System.Linq.ILookup{System.String,``0})">
+            <summary>
+                Adds query string value to an existing url, both absolute and relative URI's are supported.
+            </summary>
+            <code>
+                // returns "www.domain.com/test?param1=val1&amp;param2=val2&amp;param3=val3"
+                new Uri("www.domain.com/test?param1=val1").ExtendQuery(new Dictionary&lt;string, string&gt; { { "param2", "val2" }, { "param3", "val3" } }); 
+            
+                // returns "/test?param1=val1&amp;param2=val2&amp;param3=val3"
+                new Uri("/test?param1=val1").ExtendQuery(new Dictionary&lt;string, string&gt; { { "param2", "val2" }, { "param3", "val3" } }); 
+            </code>
+            <param name="uri">Uri to extend the query for</param>
+            <param name="values">ILookup with values</param>
+            <returns>Uri with extended query</returns>
+        </member>
+        <member name="T:Dapplo.HttpExtensions.UriParseExtensions">
+            <summary>
+                Uri extensions which help with parsing
+            </summary>
+        </member>
+        <member name="M:Dapplo.HttpExtensions.UriParseExtensions.QueryStringToDictionary(System.String)">
+            <summary>
+                Query-string To Dictionary creates a IDictionary
+            </summary>
+            <param name="queryString">query string which is processed</param>
+            <returns>IDictionary string, string</returns>
+        </member>
+        <member name="M:Dapplo.HttpExtensions.UriParseExtensions.QueryStringToKeyValuePairs(System.String)">
+            <summary>
+                Query-string To KeyValuePairs creates a List with KeyValuePair which have the name-values
+            </summary>
+            <param name="queryString">query string which is processed</param>
+            <returns>List KeyValuePair string, string</returns>
+        </member>
+        <member name="M:Dapplo.HttpExtensions.UriParseExtensions.QueryToDictionary(System.Uri)">
+            <summary>
+                QueryToDictionary creates a IDictionary with name-values
+            </summary>
+            <param name="uri">Uri of which the query is processed</param>
+            <returns>IDictionary string, string</returns>
+        </member>
+        <member name="M:Dapplo.HttpExtensions.UriParseExtensions.QueryToKeyValuePairs(System.Uri)">
+            <summary>
+                QueryToKeyValuePairs creates a List with KeyValuePair which have the name-values
+            </summary>
+            <param name="uri">Uri of which the query is processed</param>
+            <returns>List KeyValuePair string, string</returns>
+        </member>
+        <member name="M:Dapplo.HttpExtensions.UriParseExtensions.QueryToLookup(System.Uri)">
+            <summary>
+                QueryToLookup creates a ILookup with name-values
+            </summary>
+            <param name="uri">Uri of which the query is processed</param>
+            <returns>ILookup string, string</returns>
+        </member>
+    </members>
+</doc>

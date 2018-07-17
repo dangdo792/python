@@ -1,0 +1,67 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Dapplo.HttpExtensions.JsonNet</name>
+    </assembly>
+    <members>
+        <member name="T:Dapplo.HttpExtensions.JsonNet.JsonNetJsonSerializer">
+            <summary>
+                Made to have Dapplo.HttpExtension use Json.NET
+            </summary>
+        </member>
+        <member name="M:Dapplo.HttpExtensions.JsonNet.JsonNetJsonSerializer.RegisterGlobally(System.Boolean)">
+            <summary>
+                Register this IJsonSerializer
+            </summary>
+            <param name="force">bool to specify if this also needs to be set when another serializer is already specified</param>
+        </member>
+        <member name="P:Dapplo.HttpExtensions.JsonNet.JsonNetJsonSerializer.Settings">
+            <summary>
+                The JsonSerializerSettings used in the JsonNetJsonSerializer
+            </summary>
+        </member>
+        <member name="M:Dapplo.HttpExtensions.JsonNet.JsonNetJsonSerializer.CanSerializeTo(System.Type)">
+            <summary>
+                Test if the specified type can be serialized to JSON
+            </summary>
+            <param name="sourceType">Type to check</param>
+            <returns>bool</returns>
+        </member>
+        <member name="M:Dapplo.HttpExtensions.JsonNet.JsonNetJsonSerializer.CanDeserializeFrom(System.Type)">
+            <summary>
+                Test if the specified type can be deserialized
+            </summary>
+            <param name="targetType">Type to check</param>
+            <returns>bool</returns>
+        </member>
+        <member name="M:Dapplo.HttpExtensions.JsonNet.JsonNetJsonSerializer.Deserialize(System.Type,System.String)">
+            <summary>
+            Deserialize the specified json string into the target type
+            </summary>
+            <param name="targetType"></param>
+            <param name="jsonString"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dapplo.HttpExtensions.JsonNet.JsonNetJsonSerializer.Serialize``1(``0)">
+            <summary>
+            Serialize the passed object into a json string
+            </summary>
+            <param name="jsonObject"></param>
+            <typeparam name="T"></typeparam>
+            <returns></returns>
+        </member>
+        <member name="T:Dapplo.HttpExtensions.JsonNet.ReadOnlyConsideringContractResolver">
+            <summary>
+                This takes care that the members are only serialized when there is no ReadOnlyAttribute
+            </summary>
+        </member>
+        <member name="M:Dapplo.HttpExtensions.JsonNet.ReadOnlyConsideringContractResolver.CreateProperty(System.Reflection.MemberInfo,Newtonsoft.Json.MemberSerialization)">
+            <summary>
+                This takes care that the members are only serialized when there is no ReadOnlyAttribute
+            </summary>
+            <param name="member">MemberInfo</param>
+            <param name="memberSerialization">MemberSerialization</param>
+            <returns>JsonProperty</returns>
+        </member>
+    </members>
+</doc>

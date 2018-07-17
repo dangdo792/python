@@ -1,0 +1,7 @@
+# File pattern ignore list
+
+# Build Folder
+EUOEM_Tracker/bin/
+EUOEM_Tracker/obj/
+.vs/
+%HOMEDRIVE%%HOMEPATH%/
