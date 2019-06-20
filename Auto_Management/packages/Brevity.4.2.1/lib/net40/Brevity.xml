@@ -1,0 +1,786 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Brevity</name>
+    </assembly>
+    <members>
+        <member name="M:Brevity.AssemblyExtensions.GetCustomAttribute``1(System.Reflection.Assembly)">
+            <summary>
+            Gets a custom attribute set on the assembly. Null if the given attribute hasn't been set. If there are multiple attributes
+            of the given type, only the first is returned.
+            </summary>
+            <param name="assembly">The assembly to find attributes in.</param>
+            <typeparam name="TAttributeType">The type of attribute to find.</typeparam>
+            <returns></returns>
+        </member>
+        <member name="M:Brevity.AssemblyExtensions.GetCustomAttribute``1(System.Reflection.Assembly,System.Func{``0})">
+            <summary>
+            Gets a custom attribute set on the assembly. Null if the given attribute hasn't been set. If there are multiple attributes
+            of the given type, only the first is returned.
+            </summary>
+            <param name="assembly">The assembly to find attributes in.</param>
+            <param name="notFound">If the custom attribute is not found, this function will be called.</param>
+            <typeparam name="TAttributeType">The type of attribute to find.</typeparam>
+            <returns></returns>
+        </member>
+        <member name="T:Brevity.ByteArrayExtensions">
+            <summary>
+            Extension methods for byte[].
+            </summary>
+        </member>
+        <member name="M:Brevity.ByteArrayExtensions.ToBase64(System.Byte[])">
+            <summary>
+            Converts the given binary data to base64.
+            </summary>
+            <param name="binary"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Brevity.ByteArrayExtensions.Encrypt(System.Byte[],System.Security.Cryptography.RSA,System.String)">
+            <summary>
+            Encrypt binary.
+            </summary>
+            <param name="binary">The data to encrypt.</param>
+            <param name="publicKey">The public key.</param>
+            <param name="symmetricAlgorithmName">Optional. The name of the symmetric algorithm to use. Defaults to "Rijndael" (128 bits AES). See http://msdn.microsoft.com/en-us/library/k74a682y(v=vs.100).aspx for a list of valid values.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Brevity.ByteArrayExtensions.Decrypt(System.Byte[],System.Security.Cryptography.RSA,System.String)">
+            <summary>
+            Decrypt binary.
+            </summary>
+            <param name="binary">The data to encrypt.</param>
+            <param name="privateKey">The private key.</param>
+            <param name="symmetricAlgorithmName">Optional. The name of the symmetric algorithm to use. Defaults to "Rijndael" (128 bits AES). See http://msdn.microsoft.com/en-us/library/k74a682y(v=vs.100).aspx for a list of valid values.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Brevity.ByteArrayExtensions.Save(System.Byte[],System.String,System.Object[])">
+            <summary>
+            Saves the binary data to the given path.
+            </summary>
+            <param name="binary">The binary data to save.</param>
+            <param name="path">The path to save the binary data to.</param>
+            <param name="args">Optional arguments to the path.</param>
+            <returns>The saved binary.</returns>
+        </member>
+        <member name="M:Brevity.Culture.Scope(System.String)">
+            <summary>
+            Sets the given culture into the current thread.
+            </summary>
+            <param name="culture"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Brevity.Culture.Dispose">
+            <summary>
+            Sets the previous culture into the current thread.
+            </summary>
+        </member>
+        <member name="T:Brevity.ExceptionExtensions">
+            <summary>
+            Extension methods for <see cref="T:System.Exception"/>
+            </summary>
+        </member>
+        <member name="M:Brevity.ExceptionExtensions.GetAllMessages(System.Exception)">
+            <summary>
+            Returns the message of the exception and all inner exceptions.
+            </summary>
+            <param name="exception"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Brevity.FixedRecord.FixedColumnAttribute.#ctor(System.Int32)">
+            <summary>
+            
+            </summary>
+            <param name="position">1-based position (i.e. position starts at 1, NOT 0).</param>
+        </member>
+        <member name="M:Brevity.FixedRecord.FixedColumnAttribute.#ctor(System.Int32,System.Int32)">
+            <summary>
+            
+            </summary>
+            <param name="from">1-based position (i.e. position starts at 1, NOT 0).</param>
+            <param name="to">To is inclusive.</param>
+        </member>
+        <member name="P:Brevity.FixedRecord.FixedColumnAttribute.Length">
+            <summary>
+            Calculates the length as <see cref="P:Brevity.FixedRecord.FixedColumnAttribute.From"/> + 1 - <see cref="P:Brevity.FixedRecord.FixedColumnAttribute.To"/>. If From = 1 and To = 1, length is 1. If from = 1 and To = 2, length is 2, and so forth.
+            </summary>
+        </member>
+        <member name="M:Brevity.MethodInfoExtensions.ToString(System.Reflection.MethodInfo,System.Object[])">
+            <summary>
+            Outputs the method and its arguments. E.g. Foo('bar',123,null).
+            Use the overloaded version if you want to see parameter names as well. 
+            </summary>
+            <param name="method"></param>
+            <param name="arguments"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Brevity.MethodInfoExtensions.ToString(System.Reflection.MethodInfo,System.Boolean,System.Object[])">
+            <summary>
+            Outputs the method and its arguments. E.g. Foo('bar',123,null).
+            </summary>
+            <param name="method"></param>
+            <param name="outputParameterNames">Set to true if you want the parameter name to be output with the arguments.</param>
+            <param name="arguments"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Brevity.ObjectExtensions.ToJson(System.Object,System.Boolean,System.Collections.Generic.IList{Newtonsoft.Json.JsonConverter})">
+            <summary>
+            Returns the object as a JSON string.
+            </summary>
+        </member>
+        <member name="M:Brevity.ObjectExtensions.ToJson(System.Object)">
+            <summary>
+            Returns the object as a JSON string with indentation.
+            </summary>
+        </member>
+        <member name="M:Brevity.ObjectExtensions.IsNull(System.Object)">
+            <summary>
+            Returns true if the object is null.
+            </summary>
+        </member>
+        <member name="M:Brevity.ObjectExtensions.IsNotNull(System.Object)">
+            <summary>
+            Returns true if the object is not null.
+            </summary>
+        </member>
+        <member name="M:Brevity.ObjectExtensions.IsNull``1(``0,System.Action)">
+            <summary>
+            Invokes the given action if the object is null.
+            </summary>
+            <returns>The object.</returns>
+        </member>
+        <member name="M:Brevity.ObjectExtensions.IsNotNull``1(``0,System.Action)">
+            <summary>
+            Invokes the given action if the object is not null.
+            </summary>
+            <returns>The object.</returns>
+        </member>
+        <member name="M:Brevity.ObjectExtensions.Require``1(``0,System.String)">
+            <summary>
+            Throws an <see cref="T:System.ArgumentNullException"/> if the object is null.
+            </summary>
+        </member>
+        <member name="M:Brevity.ObjectExtensions.TryGet``2(``0,System.Linq.Expressions.Expression{System.Func{``0,``1}})">
+            <summary>
+            Retrieve a property only if the object to retrieve the value from is not null.
+            </summary>
+            <typeparam name="TObjectType"></typeparam>
+            <typeparam name="TPropertyType"></typeparam>
+            <param name="object"></param>
+            <param name="propertyGetter"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Brevity.ResourceManagerExtensions">
+            <summary>
+            Provides extension methods for <see cref="T:System.Resources.ResourceManager"/>.
+            </summary>
+        </member>
+        <member name="M:Brevity.ResourceManagerExtensions.GetString(System.Resources.ResourceManager,System.String,System.Object[])">
+            <summary>
+            Returns the value of the specified string resource, formatted with the given arguments, using the current UI culture. 
+            </summary>
+            <param name="resourceManager"></param>
+            <param name="name"></param>
+            <param name="args"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Brevity.ResourceManagerExtensions.GetString(System.Resources.ResourceManager,System.String,System.Globalization.CultureInfo,System.Object[])">
+            <summary>
+            Returns the value of the specified string resource, formatted with the given arguments, using the specified culture. 
+            </summary>
+            <param name="resourceManager"></param>
+            <param name="name"></param>
+            <param name="culture"> </param>
+            <param name="args"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Brevity.Result">
+            <summary>
+            A simple class that represents the result of some operation or check.
+            </summary>
+        </member>
+        <member name="M:Brevity.Result.op_Implicit(System.Boolean)~Brevity.Result">
+            <summary>
+            Convertes the bool value to a result.
+            </summary>
+            <param name="isSuccess"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Brevity.Result.op_Implicit(Brevity.Result)~System.Boolean">
+            <summary>
+            Converts the result to a bool value.
+            </summary>
+            <param name="result"></param>
+            <returns></returns>
+        </member>
+        <member name="P:Brevity.Result.IsSuccess">
+            <summary>
+            True if the operation/check was successfull. 
+            </summary>
+        </member>
+        <member name="P:Brevity.Result.Message">
+            <summary>
+            A meaningful message to explain the <see cref="P:Brevity.Result.IsSuccess"/> status.
+            </summary>
+        </member>
+        <member name="T:Brevity.AsymmetricAlgorithmExtensions">
+            <summary>
+            Extension methods to retrieve public/private key.
+            </summary>
+        </member>
+        <member name="M:Brevity.AsymmetricAlgorithmExtensions.GetPublicKey``1(``0)">
+            <summary>
+            Get the public key.
+            </summary>
+            <param name="provider"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Brevity.AsymmetricAlgorithmExtensions.GetPrivateKey``1(``0)">
+            <summary>
+            Get the private key.
+            </summary>
+            <param name="provider"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Brevity.StreamExtensions.ToBase64(System.IO.Stream)">
+            <summary>
+            Converts the stream to a Base64 string.
+            </summary>
+            <param name="stream"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Brevity.StreamExtensions.ToText(System.IO.Stream)">
+            <summary>
+            Returns the string content of the stream.
+            </summary>
+            <param name="stream"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Brevity.StreamExtensions.ToXml(System.IO.Stream)">
+            <summary>
+            Returns the XML content of the stream.
+            </summary>
+            <param name="xmlStream">A stream that contains XML data.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Brevity.StreamExtensions.Save(System.IO.Stream,System.String)">
+            <summary>
+            Write the stream to the given path. If the stream is seekable, the stream is repositioned at the beginning. 
+            The stream is not disposed. 
+            </summary>
+            <param name="stream"></param>
+            <param name="path">The path to save the stream to.</param>
+            <returns>The stream.</returns>
+        </member>
+        <member name="M:Brevity.StreamExtensions.ToBinary(System.IO.Stream)">
+            <summary>
+            Converts the stream to a byte array.
+            </summary>
+            <param name="stream"></param>
+            <returns></returns>
+        </member>
+        <member name="F:Brevity.StringExtensions.TruncateIndicator">
+            <summary>
+            The value used to indicate that the string was truncated.
+            </summary>
+        </member>
+        <member name="M:Brevity.StringExtensions.Save(System.String,System.String,System.Object[])">
+            <summary>
+            Saves the string to the given path.
+            </summary>
+            <param name="text">The text to save.</param>
+            <param name="path">The path to save the text to.</param>
+            <param name="args">Optional arguments to the path.</param>
+            <returns>The saved text.</returns>
+        </member>
+        <member name="M:Brevity.StringExtensions.Remove(System.String,System.String[])">
+            <summary>
+            Removes occurences of the given string.
+            </summary>
+            <param name="value">The string to remove from.</param>
+            <param name="remove">The value to remove.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Brevity.StringExtensions.Remove(System.String,System.StringComparison,System.String[])">
+            <summary>
+            Removes occurences of the given string.
+            </summary>
+            <param name="value">The string to remove from.</param>
+            <param name="stringComparison">Specify rules for the search.</param>
+            <param name="remove">The value to remove.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Brevity.StringExtensions.Open(System.String)">
+            <summary>
+            Opens a stream from the given path.
+            </summary>
+            <param name="path"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Brevity.StringExtensions.Repeat(System.String,System.Int32)">
+            <summary>
+            Repeats the string the given number of times.
+            </summary>
+            <param name="value"></param>
+            <param name="times"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Brevity.StringExtensions.Mask(System.String,System.Int32)">
+            <summary>
+            Masks everything but the first <see cref="!:visible"/> chars.
+            </summary>
+            <param name="value"></param>
+            <param name="visible"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Brevity.StringExtensions.Mask(System.String)">
+            <summary>
+            Masks half the string.
+            </summary>
+            <param name="value"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Brevity.StringExtensions.FromJson``1(System.String)">
+            <summary>
+            Converts the JSON string back into an object of the given type.
+            </summary>
+            <typeparam name="TDeserializedType">The type of object to deserialize into.</typeparam>
+            <param name="json">The JSON string to deserialize.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Brevity.StringExtensions.Get(System.String,System.Object[])">
+            <summary>
+            Does a HTTP GET.
+            </summary>
+            <returns>The response.</returns>
+        </member>
+        <member name="M:Brevity.StringExtensions.Post(System.String,System.String)">
+            <summary>
+            Does a HTTP POST.
+            </summary>
+            <param name="url"></param>
+            <param name="upload"></param>
+            <returns>The response</returns>
+        </member>
+        <member name="M:Brevity.StringExtensions.Write(System.String)">
+            <summary>
+            Writes the given value to the console (with newline).
+            </summary>
+            <returns>The written value.</returns>
+        </member>
+        <member name="M:Brevity.StringExtensions.Write(System.String,System.Object[])">
+            <summary>
+            Writes the given value to the console (with newline).
+            </summary>
+            <returns>The written value.</returns>
+        </member>
+        <member name="M:Brevity.StringExtensions.ToInt(System.String)">
+            <summary>
+            Tries to convert the string  to an int. If the value is not a valid int, then 0 is returned.
+            </summary>
+            <param name="value"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Brevity.StringExtensions.ToInt(System.String,System.Int32)">
+            <summary>
+            Tries to convert the string  to an int. If the value is not a valid int, then the default value is returned.
+            </summary>
+            <param name="value"></param>
+            <param name="default"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Brevity.StringExtensions.ToFileName(System.String,System.Char)">
+            <summary>
+            Replaces invalid filenamechars with <paramref name="replaceWith"/> and trims the value.
+            </summary>
+        </member>
+        <member name="M:Brevity.StringExtensions.Truncate(System.String,System.Int32,System.String)">
+            <summary>
+            Truncates the string. 
+            </summary>
+            <param name="value">The length of the truncated string.</param>
+            <param name="length"></param>
+            <param name="truncateIndicator">A string that indicates that truncating has taken place.</param>
+            <returns>The truncated string.</returns>
+        </member>
+        <member name="M:Brevity.StringExtensions.ToDateTime(System.String)">
+            <summary>
+            Converts a string to a date.
+            </summary>
+            <param name="value"></param>
+            <returns>A DateTime representing the given string. <see cref="F:System.DateTime.MinValue"/> is returned if the value is not a valid date.</returns>
+        </member>
+        <member name="M:Brevity.StringExtensions.EnsureTrailing(System.String,System.String)">
+            <summary>
+            Ensures that the string ends with the given text.
+            </summary>
+            <param name="value"></param>
+            <param name="ensure">The text to ensure at the end of the string.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Brevity.StringExtensions.OpenEmbeddedResource(System.String)">
+            <summary>
+            Opens an embedded resource with the given name.
+            </summary>
+            <param name="name"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Brevity.StringExtensions.Require(System.String,System.String)">
+            <summary>
+            Throws an <see cref="T:System.ArgumentNullException"/> if the string is null or empty.
+            </summary>
+        </member>
+        <member name="M:Brevity.StringExtensions.FormatWith(System.String,System.Object[])">
+            <summary>
+            Formats the string.
+            </summary>
+        </member>
+        <member name="M:Brevity.StringExtensions.IsEither(System.String,System.String[])">
+            <summary>
+            Returns true if the string matches any of the given arguments.
+            </summary>
+            <param name="value"></param>
+            <param name="args"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Brevity.StringExtensions.IsNeither(System.String,System.String[])">
+            <summary>
+            Returns true if the string matches none of the given arguments.
+            </summary>
+            <param name="value"></param>
+            <param name="args"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Brevity.StringExtensions.Join(System.Collections.Generic.IEnumerable{System.String},System.String)">
+            <summary>
+            Returns a concatenated string with all the values in the array. 
+            The values are separated by the given separator.
+            </summary>
+            <param name="value">The values to join.</param>
+            <param name="separator">The string to insert between the joined values.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Brevity.StringExtensions.Join(System.Collections.Generic.IEnumerable{System.String})">
+            <summary>
+            Returns a concatenated string with all the values in the array. 
+            The values are separated by the default separator: ", ".
+            </summary>
+            <param name="value">The values to join.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Brevity.StringExtensions.WrapWith(System.String,System.String)">
+            <summary>
+            Returns the given value surrounded by the given argument.
+            </summary>
+            <param name="value"></param>
+            <param name="wrap"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Brevity.StringExtensions.WrapWith(System.Collections.Generic.IEnumerable{System.String},System.String)">
+            <summary>
+            Wraps all the values in the given enumerable with the given wrap.
+            </summary>
+            <param name="source"></param>
+            <param name="wrap"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Brevity.StringExtensions.IsMatch(System.String,System.String)">
+            <summary>
+            True if the given string matches the regex pattern. 
+            </summary>
+            <param name="input"></param>
+            <param name="pattern"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Brevity.StringExtensions.ComputeHash(System.String)">
+            <summary>
+            Computes the MD5 hash of the string. 
+            </summary>
+            <param name="input"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Brevity.StringExtensions.ComputeHash(System.String,System.Security.Cryptography.HashAlgorithm)">
+            <summary>
+            Uses the given <see cref="T:System.Security.Cryptography.HashAlgorithm"/> to compute a hash of the string. 
+            </summary>
+            <param name="input"></param>
+            <param name="algorithm"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Brevity.StringExtensions.ToBinary(System.String)">
+            <summary>
+             Uses the default encoding to get the bytes for the given string.
+            </summary>
+            <param name="text">The text to get binary from.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Brevity.StringExtensions.ToBinary(System.String,System.Text.Encoding)">
+            <summary>
+             Uses the given encoding to get the bytes for the given string.
+            </summary>
+            <param name="text">The text to get binary from.</param>
+            <param name="encoding">The encoding to use.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Brevity.StringExtensions.ToXml(System.String)">
+            <summary>
+            Loads the string into an XML document.
+            </summary>
+            <param name="xmlString">The string that contains the XML.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Brevity.StringExtensions.Capture(System.String,Brevity.StringExtensions.Delimiter)">
+            <summary>
+            Extracts strings that are contained within the given delimiter.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Brevity.StringExtensions.NormalizeWhitespace(System.String)">
+            <summary>
+            Replaces multiple occurences of whitespace with a single whitespace.
+            </summary>
+            <param name="text"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Brevity.StringExtensions.Encrypt(System.String,System.Security.Cryptography.RSA,System.String)">
+            <summary>
+            Encrypt text. Converts the text to binary (UTF-8), then encrypts the binary data. Then returns base64 of the binary data.  
+            </summary>
+            <param name="text">The data to encrypt.</param>
+            <param name="publicKey">The public key.</param>
+            <param name="symmetricAlgorithmName">Optional. The name of the symmetric algorithm to use. Defaults to "Rijndael" (128 bits AES). See http://msdn.microsoft.com/en-us/library/k74a682y(v=vs.100).aspx for a list of valid values.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Brevity.StringExtensions.Decrypt(System.String,System.Security.Cryptography.RSA,System.String)">
+            <summary>
+            Decrypt text. Converts the text to binary (UTF-8), then encrypts the binary data. Then returns base64 of the binary data.  
+            </summary>
+            <param name="text">The data to encrypt.</param>
+            <param name="publicKey">The public key.</param>
+            <param name="symmetricAlgorithmName">Optional. The name of the symmetric algorithm to use. Defaults to "Rijndael" (128 bits AES). See http://msdn.microsoft.com/en-us/library/k74a682y(v=vs.100).aspx for a list of valid values.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Brevity.StringExtensions.FromBase64(System.String)">
+            <summary>
+            Converts the given string to binary.
+            </summary>
+            <param name="base64"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Brevity.StringExtensions.ToDictionary(System.String,System.String,System.String,System.String)">
+            <summary>
+            Parse a text into a dictionary.
+            
+            NOT speed optimized. Will scan the contents once to get all items, then each item to find key/value. Additional scanning to find comment char.
+            </summary>
+            <param name="text">The text to parse.</param>
+            <param name="keyValueSeparator">The symbol that separates the key from the value.</param>
+            <param name="itemSeparator">The symbol that separates entries from eachother.</param>
+            <param name="lineComment">The symbol to use for indicating a line comment.</param>
+            <returns>Empty dictionary if no text or no values. Otherwise a dictionary populated with values.</returns>
+        </member>
+        <member name="M:Brevity.StringExtensions.RemoveIllegalXmlNumericCharacterReference(System.String)">
+            <summary>
+            Removes illegal numeric character reference ("&amp;#xhhhh;") for XML 1.0. The valid character references are defined here: <a href="http://www.w3.org/TR/xml/#charsets">http://www.w3.org/TR/xml/#charsets</a>.
+            </summary>
+        </member>
+        <member name="M:Brevity.StringExtensions.Start(System.String)">
+            <summary>
+            Invokes <see cref="M:System.Diagnostics.Process.Start(System.String)"/>.
+            </summary>
+            <param name="fileName"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Brevity.StringExtensions.Delimiter">
+            <summary>
+            Defines the supported delimiters. 
+            </summary>
+        </member>
+        <member name="F:Brevity.StringExtensions.Delimiter.RoundBrackets">
+            <summary>
+            ( )
+            </summary>
+        </member>
+        <member name="F:Brevity.StringExtensions.Delimiter.AngleBrackets">
+            <summary>
+            &lt; &gt;
+            </summary>
+        </member>
+        <member name="F:Brevity.StringExtensions.Delimiter.SquareBrackets">
+            <summary>
+             [ ]
+            </summary>
+        </member>
+        <member name="F:Brevity.StringExtensions.Delimiter.CurlyBrackets">
+            <summary>
+            { }
+            </summary>
+        </member>
+        <member name="F:Brevity.StringExtensions.Delimiter.Dollar">
+            <summary>
+            $
+            </summary>
+        </member>
+        <member name="T:Brevity.StringTemplate.StringTemplateExtensions">
+            <summary>
+            Extension methods for StringTemplate support.
+            </summary>
+        </member>
+        <member name="M:Brevity.StringTemplate.StringTemplateExtensions.ToTemplate(System.String)">
+            <summary>
+            Converts the string to a template.
+            </summary>
+        </member>
+        <member name="M:Brevity.StringTemplate.StringTemplateExtensions.Set(System.String,System.String,System.Object)">
+            <summary>
+            Creates a StringTemplate of the string and sets an attribute for the template.
+            </summary>
+            <param name="input">The template.</param>
+            <param name="name">The name of the attribute.</param>
+            <param name="value">The value of the attribute.</param>
+            <returns>The template that can have further properties set.</returns>
+        </member>
+        <member name="T:Brevity.StringTemplate.StringTemplateExtensions.Template">
+            <summary>
+            Wraps a StringTemplate to provide fluent setting of attributes.
+            </summary>
+        </member>
+        <member name="F:Brevity.StringTemplate.StringTemplateExtensions.Template._renderers">
+            <summary>
+            Holds any renderers added via <see cref="M:Brevity.StringTemplate.StringTemplateExtensions.Template.RegisterRenderer``1(Antlr4.StringTemplate.IAttributeRenderer)"/>.
+            </summary>
+        </member>
+        <member name="F:Brevity.StringTemplate.StringTemplateExtensions.Template._template">
+            <summary>
+            Holds the template text. Used to create the StringTemplate inside <see cref="M:Brevity.StringTemplate.StringTemplateExtensions.Template.Render"/>.
+            </summary>
+        </member>
+        <member name="M:Brevity.StringTemplate.StringTemplateExtensions.Template.Set(System.String,System.Object)">
+            <summary>
+            Sets an attribute.
+            </summary>
+            <param name="name">The name of the attribute.</param>
+            <param name="value">The value of the attribute.</param>
+            <returns>The template that can have further properties set.</returns>
+        </member>
+        <member name="M:Brevity.StringTemplate.StringTemplateExtensions.Template.RegisterRenderer``1(Antlr4.StringTemplate.IAttributeRenderer)">
+            <summary>
+            Registers a renderer for the given type.
+            </summary>
+            <param name="attributeRenderer"></param>
+            <typeparam name="T"></typeparam>
+            <returns></returns>
+        </member>
+        <member name="M:Brevity.StringTemplate.StringTemplateExtensions.Template.Render">
+            <summary>
+            Renders the template. Invoke this after having set all your attributes. Uses '$' as start and stop delimiters. 
+            </summary>
+            <returns>The rendered template.</returns>
+        </member>
+        <member name="M:Brevity.StringTemplate.StringTemplateExtensions.Template.Render(Brevity.StringExtensions.Delimiter)">
+            <summary>
+            Renders the template using the given delimiters. The default delmiter is '$'. 
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Brevity.StringTemplate.StringTemplateExtensions.Template.op_Implicit(Brevity.StringTemplate.StringTemplateExtensions.Template)~System.String">
+            <summary>
+            Enables implicit conversion from template to string.
+            </summary>
+            <param name="template"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Brevity.Velocity.VelocityExtensions">
+            <summary>
+            Extension methods for Velocity support.
+            </summary>
+        </member>
+        <member name="M:Brevity.Velocity.VelocityExtensions.ToTemplate(System.String)">
+            <summary>
+            Converts the string to a template (velocitycontext).
+            </summary>
+        </member>
+        <member name="M:Brevity.Velocity.VelocityExtensions.Set(System.String,System.String,System.Object)">
+            <summary>
+            Creates a StringTemplate of the string and sets an attribute for the template.
+            </summary>
+            <param name="templateText">The template.</param>
+            <param name="name">The name of the attribute.</param>
+            <param name="value">The value of the attribute.</param>
+            <returns>The template that can have further properties set.</returns>
+        </member>
+        <member name="M:Brevity.Velocity.VelocityExtensions.VelocityContext.Set(System.String,System.Object)">
+            <summary>
+            Add a value to the context.
+            </summary>
+        </member>
+        <member name="M:Brevity.Velocity.VelocityExtensions.VelocityContext.Render">
+            <summary>
+            Renders the template and returns it as a string. 
+            </summary>
+            <returns>The rendered template.</returns>
+        </member>
+        <member name="M:Brevity.Velocity.VelocityExtensions.VelocityContext.Render(System.IO.TextWriter)">
+            <summary>
+            Renders the template to the given textwriter.
+            </summary>
+        </member>
+        <member name="M:Brevity.Velocity.VelocityExtensions.VelocityContext.op_Implicit(Brevity.Velocity.VelocityExtensions.VelocityContext)~System.String">
+            <summary>
+            Enables implicit conversion to string.
+            </summary>
+        </member>
+        <member name="T:Brevity.XmlDocumentWithNamespaces">
+            <summary>
+            An XmlDocument that also contains an <see cref="T:System.Xml.XmlNamespaceManager"/> that has all namespace-aliases mapped.
+            </summary>
+        </member>
+        <member name="M:Brevity.XmlDocumentWithNamespaces.PopulateNamespaces(System.Xml.XmlDocument)">
+            <summary>
+            From http://stackoverflow.com/a/4819510.
+            </summary>
+            <param name="document"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Brevity.XmlDocumentExtensions">
+            <summary>
+            Extension methods for <see cref="T:System.Xml.XmlDocument"/>.
+            </summary>
+        </member>
+        <member name="M:Brevity.XmlDocumentExtensions.RegisterNamespaces(System.Xml.XmlDocument)">
+            <summary>
+            Registers all namespacealiases in the XML document so that you can use them in <see cref="M:Brevity.XmlDocumentExtensions.Select(System.Xml.XmlDocument,System.String)"/>.
+            </summary>
+            <param name="xml"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Brevity.XmlDocumentExtensions.Select(System.Xml.XmlDocument,System.String)">
+            <summary>
+            Gets the <see cref="P:System.Xml.XmlNode.InnerText"/> of the node that matches the <paramref name="xpath"/>.
+            </summary>
+        </member>
+        <member name="M:Brevity.XmlDocumentExtensions.Select(Brevity.XmlDocumentWithNamespaces,System.String)">
+            <summary>
+            Gets the <see cref="P:System.Xml.XmlNode.InnerText"/> of the node that matches the <paramref name="xpath"/>. You can use namespace aliases in the <paramref name="xpath"/> expression.
+            </summary>
+        </member>
+        <member name="M:Brevity.XmlDocumentExtensions.Transform(System.Xml.XmlDocument,System.Xml.XmlDocument,System.Object[],System.Tuple{System.String,System.Object}[])">
+            <summary>
+            Performs XSL transformation.
+            </summary>
+            <param name="xml">The XML to transform. If XML is null, then null is returned.</param>
+            <param name="xsl">The XSL to apply. If XSL is null, then XML is returned unchanged.</param>
+            <param name="xsltArguments">Optionally any arguments to pass to the XSL.</param>
+            <returns>The transformed XML.</returns>
+        </member>
+        <member name="T:Brevity.XmlNodeExtensions">
+            <summary>
+            Extension methods for <see cref="T:System.Xml.XmlNode"/>.
+            </summary>
+        </member>
+        <member name="M:Brevity.XmlNodeExtensions.Select(System.Xml.XmlNode,System.String)">
+            <summary>
+            Gets the <see cref="P:System.Xml.XmlNode.InnerText"/> of the node that matches the <paramref name="xpath"/>.
+            </summary>
+        </member>
+    </members>
+</doc>

@@ -1,0 +1,992 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Dapplo.HttpExtensions.OAuth</name>
+    </assembly>
+    <members>
+        <member name="T:Dapplo.HttpExtensions.OAuth.AuthorizeModes">
+            <summary>
+                Specify the autorize mode that is used to get the token from the cloud service.
+                Some details are described here: https://developers.google.com/identity/protocols/OAuth2InstalledApp
+                You can register your implementations with the OAuthHttpMessageHandler
+                Currently only a LocalServer is in this project
+            </summary>
+        </member>
+        <member name="F:Dapplo.HttpExtensions.OAuth.AuthorizeModes.Unknown">
+            <summary>
+                Default value, this will give an exception, caller needs to specify another value
+            </summary>
+        </member>
+        <member name="F:Dapplo.HttpExtensions.OAuth.AuthorizeModes.TestPassThrough">
+            <summary>
+                Used with tests
+            </summary>
+        </member>
+        <member name="F:Dapplo.HttpExtensions.OAuth.AuthorizeModes.LocalhostServer">
+            <summary>
+                Used with a redirect URL to http://localhost:port, this is supported out of the box
+            </summary>
+        </member>
+        <member name="F:Dapplo.HttpExtensions.OAuth.AuthorizeModes.OutOfBound">
+            <summary>
+                This mode should show a popup where the user can paste the code, this is used with a redirect_uri of:
+                urn:ietf:wg:oauth:2.0:oob
+            </summary>
+        </member>
+        <member name="F:Dapplo.HttpExtensions.OAuth.AuthorizeModes.OutOfBoundAuto">
+            <summary>
+                This mode should monitor for title changes, used with a redirect_uri of: urn:ietf:wg:oauth:2.0:oob:auto
+                Dapplo.Windows has possibilities to monitor titles, this could be used for an implementation
+            </summary>
+        </member>
+        <member name="F:Dapplo.HttpExtensions.OAuth.AuthorizeModes.Pin">
+            <summary>
+                Should ask the user to enter the PIN which is shown in the browser
+            </summary>
+        </member>
+        <member name="F:Dapplo.HttpExtensions.OAuth.AuthorizeModes.EmbeddedBrowser">
+            <summary>
+                Should open an embedded _browser and catch the redirect
+            </summary>
+        </member>
+        <member name="F:Dapplo.HttpExtensions.OAuth.AuthorizeModes.Custom1">
+            <summary>
+                Custom mode 1
+            </summary>
+        </member>
+        <member name="F:Dapplo.HttpExtensions.OAuth.AuthorizeModes.Custom2">
+            <summary>
+                Custom mode 2
+            </summary>
+        </member>
+        <member name="T:Dapplo.HttpExtensions.OAuth.BaseOAuthSettings">
+            <summary>
+                Common properties for the OauthXSettings
+            </summary>
+        </member>
+        <member name="P:Dapplo.HttpExtensions.OAuth.BaseOAuthSettings.AdditionalAttributes">
+            <summary>
+                Put anything in here which is needed for the OAuth implementation of this specific service but isn't generic, e.g.
+                for Google there is a "scope"
+            </summary>
+        </member>
+        <member name="P:Dapplo.HttpExtensions.OAuth.BaseOAuthSettings.AuthorizeMode">
+            <summary>
+                The AuthorizeMode for this OAuth settings
+            </summary>
+        </member>
+        <member name="P:Dapplo.HttpExtensions.OAuth.BaseOAuthSettings.Lock">
+            <summary>
+                This makes sure than the OAuth request that needs to authenticate blocks all others until it's ready.
+            </summary>
+        </member>
+        <member name="P:Dapplo.HttpExtensions.OAuth.BaseOAuthSettings.TokenUrl">
+            <summary>
+                The URL to get a (request) token
+            </summary>
+        </member>
+        <member name="P:Dapplo.HttpExtensions.OAuth.BaseOAuthSettings.AuthorizationUri">
+            <inheritdoc />
+        </member>
+        <member name="P:Dapplo.HttpExtensions.OAuth.BaseOAuthSettings.RedirectUrl">
+            <inheritdoc />
+        </member>
+        <member name="P:Dapplo.HttpExtensions.OAuth.BaseOAuthSettings.CloudServiceName">
+            <inheritdoc />
+        </member>
+        <member name="P:Dapplo.HttpExtensions.OAuth.BaseOAuthSettings.ClientId">
+            <inheritdoc />
+        </member>
+        <member name="P:Dapplo.HttpExtensions.OAuth.BaseOAuthSettings.ClientSecret">
+            <inheritdoc />
+        </member>
+        <member name="P:Dapplo.HttpExtensions.OAuth.BaseOAuthSettings.State">
+            <inheritdoc />
+        </member>
+        <member name="P:Dapplo.HttpExtensions.OAuth.BaseOAuthSettings.EmbeddedBrowserWidth">
+            <inheritdoc />
+        </member>
+        <member name="P:Dapplo.HttpExtensions.OAuth.BaseOAuthSettings.EmbeddedBrowserHeight">
+            <inheritdoc />
+        </member>
+        <member name="P:Dapplo.HttpExtensions.OAuth.BaseOAuthSettings.UiTaskScheduler">
+            <inheritdoc />
+        </member>
+        <member name="T:Dapplo.HttpExtensions.OAuth.CodeReceivers.EmbeddedBrowserCodeReceiver">
+            <summary>
+                This will start an embedded browser to wait for the code
+            </summary>
+        </member>
+        <member name="M:Dapplo.HttpExtensions.OAuth.CodeReceivers.EmbeddedBrowserCodeReceiver.ReceiveCodeAsync(Dapplo.HttpExtensions.OAuth.AuthorizeModes,Dapplo.HttpExtensions.OAuth.ICodeReceiverSettings,System.Threading.CancellationToken)">
+            <summary>
+                Receive the code from an OAuth server
+            </summary>
+            <param name="authorizeMode">AuthorizeModes</param>
+            <param name="codeReceiverSettings">ICodeReceiverSettings</param>
+            <param name="cancellationToken">CancellationToken</param>
+            <returns>IDictionary with information</returns>
+        </member>
+        <member name="T:Dapplo.HttpExtensions.OAuth.CodeReceivers.LocalhostCodeReceiver">
+            <summary>
+                OAuth (2.0) verification code receiver that runs a local server on a free port
+                and waits for a call with the authorization verification code.
+            </summary>
+        </member>
+        <member name="P:Dapplo.HttpExtensions.OAuth.CodeReceivers.LocalhostCodeReceiver.ClosePageResponse">
+            <summary>
+                HTML code to to return the _browser, default it will try to close the _browser / tab, this won't always work.
+                You can use CloudServiceName where you want to show the CloudServiceName from your OAuth2 settings
+            </summary>
+        </member>
+        <member name="M:Dapplo.HttpExtensions.OAuth.CodeReceivers.LocalhostCodeReceiver.ReceiveCodeAsync(Dapplo.HttpExtensions.OAuth.AuthorizeModes,Dapplo.HttpExtensions.OAuth.ICodeReceiverSettings,System.Threading.CancellationToken)">
+            <summary>
+                The OAuth code receiver
+            </summary>
+            <param name="authorizeMode">AuthorizeModes tells you which mode was used to call this</param>
+            <param name="codeReceiverSettings"></param>
+            <param name="cancellationToken">CancellationToken</param>
+            <returns>Dictionary with values</returns>
+        </member>
+        <member name="T:Dapplo.HttpExtensions.OAuth.CodeReceivers.OutOfBoundCodeReceiver">
+            <summary>
+                OAuth (2.0) verification code receiver that depending on the Mode:
+                OutOfBound: shows a simple dialog and waits for the answer
+                OutOfBoundAuto: monitors title changes
+            </summary>
+        </member>
+        <member name="M:Dapplo.HttpExtensions.OAuth.CodeReceivers.OutOfBoundCodeReceiver.ReceiveCodeAsync(Dapplo.HttpExtensions.OAuth.AuthorizeModes,Dapplo.HttpExtensions.OAuth.ICodeReceiverSettings,System.Threading.CancellationToken)">
+            <summary>
+                The OAuth code receiver
+            </summary>
+            <param name="authorizeMode">which of the AuthorizeModes was used to call the method</param>
+            <param name="codeReceiverSettings"></param>
+            <param name="cancellationToken">CancellationToken</param>
+            <returns>Dictionary with values</returns>
+        </member>
+        <member name="T:Dapplo.HttpExtensions.OAuth.CodeReceivers.PassThroughCodeReceiver">
+            <summary>
+                Simply pass the Request token as the authentication
+            </summary>
+        </member>
+        <member name="M:Dapplo.HttpExtensions.OAuth.CodeReceivers.PassThroughCodeReceiver.ReceiveCodeAsync(Dapplo.HttpExtensions.OAuth.AuthorizeModes,Dapplo.HttpExtensions.OAuth.ICodeReceiverSettings,System.Threading.CancellationToken)">
+            <summary>
+                The OAuth code receiver implementation
+            </summary>
+            <param name="authorizeMode">which of the AuthorizeModes was used to call the method</param>
+            <param name="codeReceiverSettings"></param>
+            <param name="cancellationToken">CancellationToken</param>
+            <returns>Dictionary with values</returns>
+        </member>
+        <member name="T:Dapplo.HttpExtensions.OAuth.Desktop.IOleCommandTarget">
+            <summary>
+                Used to show an extended embedded web-browser
+                See <a href="https://msdn.microsoft.com/en-us/library/windows/desktop/ms683797.aspx">here</a> for more information
+                on this interface
+            </summary>
+        </member>
+        <member name="M:Dapplo.HttpExtensions.OAuth.Desktop.IOleCommandTarget.QueryStatus(System.Guid,System.Int32,System.IntPtr,System.IntPtr)">
+            <summary>
+                Queries the object for the status of one or more commands generated by user interface events.
+            </summary>
+            <param name="pguidCmdGroup"></param>
+            <param name="cCmds"></param>
+            <param name="prgCmds"></param>
+            <param name="pCmdText"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dapplo.HttpExtensions.OAuth.Desktop.IOleCommandTarget.Exec(System.Guid,System.Int32,System.Int32,System.IntPtr,System.IntPtr)">
+            <summary>
+                Executes the specified command or displays help for the command.
+            </summary>
+            <param name="pguidCmdGroup"></param>
+            <param name="nCmdId"></param>
+            <param name="nCmdexecopt"></param>
+            <param name="pvaIn"></param>
+            <param name="pvaOut"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Dapplo.HttpExtensions.OAuth.Desktop.ExtendedWebBrowserForm">
+            <summary>
+                This is the "extended" version of the WebBrowser
+            </summary>
+        </member>
+        <member name="M:Dapplo.HttpExtensions.OAuth.Desktop.ExtendedWebBrowserForm.CreateWebBrowserSiteBase">
+            <summary>
+                Overrides the CreateWebBrowserSiteBase to return ExtendedWebBrowserSite instead of WebBrowserSiteBase
+            </summary>
+            <returns>ExtendedWebBrowserSite</returns>
+        </member>
+        <member name="T:Dapplo.HttpExtensions.OAuth.Desktop.ExtendedWebBrowserForm.ExtendedWebBrowserSite">
+            <summary>
+                an internal class, which enables some additional information for the embedded WebBrowser
+            </summary>
+        </member>
+        <member name="M:Dapplo.HttpExtensions.OAuth.Desktop.ExtendedWebBrowserForm.ExtendedWebBrowserSite.#ctor(System.Windows.Forms.WebBrowser)">
+            <summary>
+                Constructor
+            </summary>
+            <param name="webBrowser">WebBrowser</param>
+        </member>
+        <member name="M:Dapplo.HttpExtensions.OAuth.Desktop.ExtendedWebBrowserForm.ExtendedWebBrowserSite.QueryStatus(System.Guid,System.Int32,System.IntPtr,System.IntPtr)">
+            <inheritdoc />
+        </member>
+        <member name="M:Dapplo.HttpExtensions.OAuth.Desktop.ExtendedWebBrowserForm.ExtendedWebBrowserSite.Exec(System.Guid,System.Int32,System.Int32,System.IntPtr,System.IntPtr)">
+            <inheritdoc />
+        </member>
+        <member name="T:Dapplo.HttpExtensions.OAuth.Desktop.OAuthLoginForm">
+            <summary>
+                The OAuthLoginForm is used to allow the user to authorize Greenshot with an "Oauth" application
+            </summary>
+        </member>
+        <member name="M:Dapplo.HttpExtensions.OAuth.Desktop.OAuthLoginForm.#ctor(System.String,System.Drawing.Size,System.Uri,System.String)">
+            <summary>
+                Constructor for an OAuth login form
+            </summary>
+            <param name="browserTitle">title of the form</param>
+            <param name="size">size of the form</param>
+            <param name="authorizationLink">Uri for the link</param>
+            <param name="callbackUrl">Uri for the callback</param>
+        </member>
+        <member name="P:Dapplo.HttpExtensions.OAuth.Desktop.OAuthLoginForm.CallbackParameters">
+            <summary>
+                the parameters which were supplied in the uri-callback from the server are stored here
+            </summary>
+        </member>
+        <member name="P:Dapplo.HttpExtensions.OAuth.Desktop.OAuthLoginForm.IsOk">
+            <summary>
+                Check if the dialog result was an ok
+            </summary>
+        </member>
+        <member name="M:Dapplo.HttpExtensions.OAuth.Desktop.OAuthLoginForm.OAuthLoginForm_Load(System.Object,System.EventArgs)">
+            <summary>
+                Make sure the form is visible
+            </summary>
+            <param name="sender">sender object</param>
+            <param name="e">EventArgs</param>
+        </member>
+        <member name="F:Dapplo.HttpExtensions.OAuth.Desktop.OAuthLoginForm.components">
+            <summary>
+            Required designer variable.
+            </summary>
+        </member>
+        <member name="M:Dapplo.HttpExtensions.OAuth.Desktop.OAuthLoginForm.Dispose(System.Boolean)">
+            <summary>
+            Clean up any resources being used.
+            </summary>
+            <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        </member>
+        <member name="M:Dapplo.HttpExtensions.OAuth.Desktop.OAuthLoginForm.InitializeComponent">
+            <summary>
+            Required method for Designer support - do not modify
+            the contents of this method with the code editor.
+            </summary>
+        </member>
+        <member name="T:Dapplo.HttpExtensions.OAuth.GrantTypes">
+            <summary>
+                Enum values for the OAuth grant types
+            </summary>
+        </member>
+        <member name="F:Dapplo.HttpExtensions.OAuth.GrantTypes.Password">
+            <summary>
+                Requesting a Password
+            </summary>
+        </member>
+        <member name="F:Dapplo.HttpExtensions.OAuth.GrantTypes.RefreshToken">
+            <summary>
+                Requesting a refresh token
+            </summary>
+        </member>
+        <member name="F:Dapplo.HttpExtensions.OAuth.GrantTypes.AuthorizationCode">
+            <summary>
+                Requesting a authorization code
+            </summary>
+        </member>
+        <member name="T:Dapplo.HttpExtensions.OAuth.ICodeReceiverSettings">
+            <summary>
+                Settings interface the OAuth (2) protocol
+            </summary>
+        </member>
+        <member name="P:Dapplo.HttpExtensions.OAuth.ICodeReceiverSettings.AuthorizationUri">
+            <summary>
+                The autorization Uri where the values of this class will be "injected"
+                Example how this can be created:
+                <code>
+            new Uri("http://server").AppendSegments("auth").Query("client_id", "{ClientId}");
+            </code>
+            </summary>
+        </member>
+        <member name="P:Dapplo.HttpExtensions.OAuth.ICodeReceiverSettings.ClientId">
+            <summary>
+                The OAuth (2) client id / consumer key
+            </summary>
+        </member>
+        <member name="P:Dapplo.HttpExtensions.OAuth.ICodeReceiverSettings.ClientSecret">
+            <summary>
+                The OAuth (2) client secret / consumer secret
+                The OAuth client/consumer secret
+                For OAuth1SignatureTypes.RsaSha1 use RsaSha1Provider instead!
+            </summary>
+        </member>
+        <member name="P:Dapplo.HttpExtensions.OAuth.ICodeReceiverSettings.CloudServiceName">
+            <summary>
+                Specify the name of the cloud service, so it can be used in window titles, logs etc
+            </summary>
+        </member>
+        <member name="P:Dapplo.HttpExtensions.OAuth.ICodeReceiverSettings.EmbeddedBrowserHeight">
+            <summary>
+                This can be used to specify the height of the embedded browser window, default is 400
+            </summary>
+        </member>
+        <member name="P:Dapplo.HttpExtensions.OAuth.ICodeReceiverSettings.EmbeddedBrowserWidth">
+            <summary>
+                This can be used to specify the width of the embedded browser window, default is 600
+            </summary>
+        </member>
+        <member name="P:Dapplo.HttpExtensions.OAuth.ICodeReceiverSettings.RedirectUrl">
+            <summary>
+                This is the redirect URL, in some implementations this is automatically set (LocalServerCodeReceiver)
+                In some implementations this could be e.g. urn:ietf:wg:oauth:2.0:oob or urn:ietf:wg:oauth:2.0:oob:auto
+            </summary>
+        </member>
+        <member name="P:Dapplo.HttpExtensions.OAuth.ICodeReceiverSettings.State">
+            <summary>
+                The OAuth (2) state, this is something that is passed to the server, is not processed but returned back to the
+                client.
+                e.g. a correlation ID
+                Default this is filled with a new Guid
+            </summary>
+        </member>
+        <member name="P:Dapplo.HttpExtensions.OAuth.ICodeReceiverSettings.UiTaskScheduler">
+            <summary>
+            A TaskScheduler which is used to schedule tasks on the UI 
+            </summary>
+        </member>
+        <member name="T:Dapplo.HttpExtensions.OAuth.IOAuth1Token">
+            <summary>
+                The credentials which should be stored.
+                This can be used to extend your Dapplo.Config.IIniSection extending interface.
+            </summary>
+        </member>
+        <member name="P:Dapplo.HttpExtensions.OAuth.IOAuth1Token.OAuthToken">
+            <summary>
+                Token for accessing OAuth services
+            </summary>
+        </member>
+        <member name="P:Dapplo.HttpExtensions.OAuth.IOAuth1Token.OAuthTokenSecret">
+            <summary>
+                OAuth token secret
+            </summary>
+        </member>
+        <member name="P:Dapplo.HttpExtensions.OAuth.IOAuth1Token.OAuthTokenVerifier">
+            <summary>
+                OAuth token verifier
+            </summary>
+        </member>
+        <member name="T:Dapplo.HttpExtensions.OAuth.IOAuth2Token">
+            <summary>
+                The credentials which should be stored.
+                This can be used to extend your Dapplo.Config.IIniSection extending interface.
+            </summary>
+        </member>
+        <member name="P:Dapplo.HttpExtensions.OAuth.IOAuth2Token.OAuth2AccessToken">
+            <summary>
+                Bearer token for accessing OAuth 2 services
+            </summary>
+        </member>
+        <member name="P:Dapplo.HttpExtensions.OAuth.IOAuth2Token.OAuth2AccessTokenExpires">
+            <summary>
+                Expire time for the AccessToken, this time (-HttpExtensionsGlobals.OAuth2ExpireOffset) is check to know if a new
+                AccessToken needs to be generated with the RefreshToken
+            </summary>
+        </member>
+        <member name="P:Dapplo.HttpExtensions.OAuth.IOAuth2Token.OAuth2RefreshToken">
+            <summary>
+                Token used to get a new Access Token
+            </summary>
+        </member>
+        <member name="T:Dapplo.HttpExtensions.OAuth.IOAuthCodeReceiver">
+            <summary>
+                This is the interface for the OAuth code receiver
+            </summary>
+        </member>
+        <member name="M:Dapplo.HttpExtensions.OAuth.IOAuthCodeReceiver.ReceiveCodeAsync(Dapplo.HttpExtensions.OAuth.AuthorizeModes,Dapplo.HttpExtensions.OAuth.ICodeReceiverSettings,System.Threading.CancellationToken)">
+            <summary>
+                The actual code receiving code
+            </summary>
+            <param name="authorizeMode">AuthorizeModes will tell you for what mode you were called</param>
+            <param name="codeReceiverSettings">ICodeReceiverSettings with the settings for the code receiver</param>
+            <param name="cancellationToken">CancellationToken</param>
+            <returns>Dictionary with the returned key-values</returns>
+        </member>
+        <member name="T:Dapplo.HttpExtensions.OAuth.OAuth1HttpBehaviour">
+            <summary>
+                Implementation of the IHttpBehaviour which bases upon the HttpBehaviour and extends it with special OAuth 1
+                functionality
+            </summary>
+        </member>
+        <member name="M:Dapplo.HttpExtensions.OAuth.OAuth1HttpBehaviour.#ctor(Dapplo.HttpExtensions.IHttpBehaviour)">
+            <summary>
+                Create a OAuthHttpBehaviour
+            </summary>
+            <param name="httpBehaviour">IHttpBehaviour to wrap</param>
+        </member>
+        <member name="P:Dapplo.HttpExtensions.OAuth.OAuth1HttpBehaviour.BeforeSend">
+            <summary>
+                Set this function if you want to modify the request message that is send to the service
+            </summary>
+        </member>
+        <member name="P:Dapplo.HttpExtensions.OAuth.OAuth1HttpBehaviour.OnAccessTokenValues">
+            <summary>
+                Set this function if you want to process any additional access token values
+            </summary>
+        </member>
+        <member name="P:Dapplo.HttpExtensions.OAuth.OAuth1HttpBehaviour.RequestConfigurations">
+            <inheritdoc />
+        </member>
+        <member name="P:Dapplo.HttpExtensions.OAuth.OAuth1HttpBehaviour.DefaultEncoding">
+            <inheritdoc />
+        </member>
+        <member name="P:Dapplo.HttpExtensions.OAuth.OAuth1HttpBehaviour.DownloadProgress">
+            <inheritdoc />
+        </member>
+        <member name="P:Dapplo.HttpExtensions.OAuth.OAuth1HttpBehaviour.HttpCompletionOption">
+            <inheritdoc />
+        </member>
+        <member name="P:Dapplo.HttpExtensions.OAuth.OAuth1HttpBehaviour.HttpContentConverters">
+            <inheritdoc />
+        </member>
+        <member name="P:Dapplo.HttpExtensions.OAuth.OAuth1HttpBehaviour.HttpSettings">
+            <inheritdoc />
+        </member>
+        <member name="P:Dapplo.HttpExtensions.OAuth.OAuth1HttpBehaviour.JsonSerializer">
+            <inheritdoc />
+        </member>
+        <member name="P:Dapplo.HttpExtensions.OAuth.OAuth1HttpBehaviour.OnHttpClientCreated">
+            <inheritdoc />
+        </member>
+        <member name="P:Dapplo.HttpExtensions.OAuth.OAuth1HttpBehaviour.OnHttpContentCreated">
+            <inheritdoc />
+        </member>
+        <member name="P:Dapplo.HttpExtensions.OAuth.OAuth1HttpBehaviour.OnHttpMessageHandlerCreated">
+            <inheritdoc />
+        </member>
+        <member name="P:Dapplo.HttpExtensions.OAuth.OAuth1HttpBehaviour.OnHttpRequestMessageCreated">
+            <inheritdoc />
+        </member>
+        <member name="P:Dapplo.HttpExtensions.OAuth.OAuth1HttpBehaviour.ReadBufferSize">
+            <inheritdoc />
+        </member>
+        <member name="P:Dapplo.HttpExtensions.OAuth.OAuth1HttpBehaviour.ThrowOnError">
+            <inheritdoc />
+        </member>
+        <member name="P:Dapplo.HttpExtensions.OAuth.OAuth1HttpBehaviour.UploadProgress">
+            <inheritdoc />
+        </member>
+        <member name="P:Dapplo.HttpExtensions.OAuth.OAuth1HttpBehaviour.UseProgressStream">
+            <inheritdoc />
+        </member>
+        <member name="P:Dapplo.HttpExtensions.OAuth.OAuth1HttpBehaviour.ValidateResponseContentType">
+            <inheritdoc />
+        </member>
+        <member name="P:Dapplo.HttpExtensions.OAuth.OAuth1HttpBehaviour.CookieContainer">
+            <inheritdoc />
+        </member>
+        <member name="M:Dapplo.HttpExtensions.OAuth.OAuth1HttpBehaviour.ShallowClone">
+            <inheritdoc />
+        </member>
+        <member name="M:Dapplo.HttpExtensions.OAuth.OAuth1HttpBehaviour.MakeCurrent">
+            <inheritdoc />
+        </member>
+        <member name="T:Dapplo.HttpExtensions.OAuth.OAuth1HttpBehaviourFactory">
+            <summary>
+                This factory can be used to create a IHttpBehaviour which handles OAuth requests
+            </summary>
+        </member>
+        <member name="M:Dapplo.HttpExtensions.OAuth.OAuth1HttpBehaviourFactory.Create(Dapplo.HttpExtensions.OAuth.OAuth1Settings,Dapplo.HttpExtensions.IHttpBehaviour)">
+            <summary>
+                Create a specify OAuth IHttpBehaviour
+            </summary>
+            <param name="oAuthSettings">OAuthSettings</param>
+            <param name="fromHttpBehaviour">IHttpBehaviour or null</param>
+            <returns>IHttpBehaviour</returns>
+        </member>
+        <member name="T:Dapplo.HttpExtensions.OAuth.OAuth1HttpMessageHandler">
+            <summary>
+                This DelegatingHandler handles the OAuth specific stuff and delegates the "final" SendAsync to the InnerHandler
+            </summary>
+        </member>
+        <member name="M:Dapplo.HttpExtensions.OAuth.OAuth1HttpMessageHandler.#cctor">
+            <summary>
+                Add the local server handler.
+            </summary>
+        </member>
+        <member name="M:Dapplo.HttpExtensions.OAuth.OAuth1HttpMessageHandler.#ctor(Dapplo.HttpExtensions.OAuth.OAuth1Settings,Dapplo.HttpExtensions.OAuth.OAuth1HttpBehaviour,System.Net.Http.HttpMessageHandler)">
+            <summary>
+                Create a HttpMessageHandler which handles the OAuth communication for you
+            </summary>
+            <param name="oAuth1Settings">OAuth1Settings</param>
+            <param name="oAuth1HttpBehaviour">OAuth1HttpBehaviour</param>
+            <param name="innerHandler">HttpMessageHandler</param>
+        </member>
+        <member name="P:Dapplo.HttpExtensions.OAuth.OAuth1HttpMessageHandler.CodeReceivers">
+            <summary>
+                Register your special OAuth handler for the AuthorizeMode here
+                Default the AuthorizeModes.LocalServer is registered.
+                Your implementation is a function which returns a Task with a IDictionary string,string.
+                It receives the OAuthSettings and a CancellationToken.
+                The return value should be that which the OAuth server gives as return values, no processing.
+            </summary>
+        </member>
+        <member name="M:Dapplo.HttpExtensions.OAuth.OAuth1HttpMessageHandler.ComputeHash(System.Security.Cryptography.HashAlgorithm,System.String)">
+            <summary>
+                Helper function to compute a hash value
+            </summary>
+            <param name="hashAlgorithm">
+                The hashing algorithm used. If that algorithm needs some initialization, like HMAC and its
+                derivatives, they should be initialized prior to passing it to this function
+            </param>
+            <param name="data">The data to hash</param>
+            <returns>a Base64 string of the hash value</returns>
+        </member>
+        <member name="M:Dapplo.HttpExtensions.OAuth.OAuth1HttpMessageHandler.GenerateNonce">
+            <summary>
+                Generate a nonce
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Dapplo.HttpExtensions.OAuth.OAuth1HttpMessageHandler.GenerateNormalizedParametersString``1(System.Collections.Generic.IDictionary{System.String,``0})">
+            <summary>
+                Generate the normalized paramter string
+            </summary>
+            <param name="queryParameters">the list of query parameters</param>
+            <returns>a string with the normalized query parameters</returns>
+        </member>
+        <member name="M:Dapplo.HttpExtensions.OAuth.OAuth1HttpMessageHandler.GenerateTimeStamp">
+            <summary>
+                Generate the timestamp for the signature
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Dapplo.HttpExtensions.OAuth.OAuth1HttpMessageHandler.GetAccessTokenAsync(System.Threading.CancellationToken)">
+            <summary>
+                Get the access token
+            </summary>
+            <param name="cancellationToken">CancellationToken</param>
+            <returns>The access token.</returns>
+        </member>
+        <member name="M:Dapplo.HttpExtensions.OAuth.OAuth1HttpMessageHandler.GetAuthorizeTokenAsync(System.Threading.CancellationToken)">
+            <summary>
+                Authorize the token by showing the authorization uri of the oauth service
+            </summary>
+            <param name="cancellationToken">CancellationToken</param>
+        </member>
+        <member name="M:Dapplo.HttpExtensions.OAuth.OAuth1HttpMessageHandler.GetRequestTokenAsync(System.Threading.CancellationToken)">
+            <summary>
+                Get the request token using the consumer id and secret.  Also initializes token secret
+            </summary>
+            <param name="cancellationToken">CancellationToken</param>
+        </member>
+        <member name="M:Dapplo.HttpExtensions.OAuth.OAuth1HttpMessageHandler.SendAsync(System.Net.Http.HttpRequestMessage,System.Threading.CancellationToken)">
+            <summary>
+                Check the HttpRequestMessage if all OAuth setting are there, if not make this available.
+            </summary>
+            <param name="httpRequestMessage">HttpRequestMessage</param>
+            <param name="cancellationToken">CancellationToken</param>
+            <returns>HttpResponseMessage</returns>
+        </member>
+        <member name="M:Dapplo.HttpExtensions.OAuth.OAuth1HttpMessageHandler.Sign(System.Net.Http.HttpRequestMessage)">
+            <summary>
+                Create a signature for the supplied HttpRequestMessage
+                And additionally a signature is added to the parameters
+            </summary>
+            <param name="httpRequestMessage">HttpRequestMessage with method and Uri</param>
+            <returns>HttpRequestMessage for fluent usage</returns>
+        </member>
+        <member name="T:Dapplo.HttpExtensions.OAuth.OAuth1Parameters">
+            <summary>
+                Enum with all the parameters for OAuth 1
+            </summary>
+        </member>
+        <member name="F:Dapplo.HttpExtensions.OAuth.OAuth1Parameters.ConsumerKey">
+            <summary>
+                Consumer key is the key which a service provides for it's consumers
+            </summary>
+        </member>
+        <member name="F:Dapplo.HttpExtensions.OAuth.OAuth1Parameters.Callback">
+            <summary>
+                Callback Uri
+            </summary>
+        </member>
+        <member name="F:Dapplo.HttpExtensions.OAuth.OAuth1Parameters.Version">
+            <summary>
+                Used version
+            </summary>
+        </member>
+        <member name="F:Dapplo.HttpExtensions.OAuth.OAuth1Parameters.SignatureMethod">
+            <summary>
+                Signing method
+            </summary>
+        </member>
+        <member name="F:Dapplo.HttpExtensions.OAuth.OAuth1Parameters.Timestamp">
+            <summary>
+                Timestamp of the request
+            </summary>
+        </member>
+        <member name="F:Dapplo.HttpExtensions.OAuth.OAuth1Parameters.Nonce">
+            <summary>
+                A unique code
+            </summary>
+        </member>
+        <member name="F:Dapplo.HttpExtensions.OAuth.OAuth1Parameters.Token">
+            <summary>
+                Token
+            </summary>
+        </member>
+        <member name="F:Dapplo.HttpExtensions.OAuth.OAuth1Parameters.Verifier">
+            <summary>
+                Token verifier
+            </summary>
+        </member>
+        <member name="F:Dapplo.HttpExtensions.OAuth.OAuth1Parameters.TokenSecret">
+            <summary>
+                Token secret
+            </summary>
+        </member>
+        <member name="F:Dapplo.HttpExtensions.OAuth.OAuth1Parameters.Signature">
+            <summary>
+                Signature for the request
+            </summary>
+        </member>
+        <member name="T:Dapplo.HttpExtensions.OAuth.OAuth1RequestConfiguration">
+            <summary>
+                Specify OAuth 1 request configuration
+            </summary>
+        </member>
+        <member name="P:Dapplo.HttpExtensions.OAuth.OAuth1RequestConfiguration.Parameters">
+            <summary>
+                The OAuth parameters for this request
+            </summary>
+        </member>
+        <member name="P:Dapplo.HttpExtensions.OAuth.OAuth1RequestConfiguration.Name">
+            <summary>
+                Name of the configuration, this should be unique and usually is the type of the object
+            </summary>
+        </member>
+        <member name="T:Dapplo.HttpExtensions.OAuth.OAuth1Settings">
+            <summary>
+                Settings for the OAuth protocol, if possible this should not be used and OAuth 2.0 is a better choice
+            </summary>
+        </member>
+        <member name="P:Dapplo.HttpExtensions.OAuth.OAuth1Settings.AccessTokenMethod">
+            <summary>
+                The HttpMethod which is used for getting the access token
+            </summary>
+        </member>
+        <member name="P:Dapplo.HttpExtensions.OAuth.OAuth1Settings.AccessTokenUrl">
+            <summary>
+                The URL to get an access token
+            </summary>
+        </member>
+        <member name="P:Dapplo.HttpExtensions.OAuth.OAuth1Settings.AuthorizeToken">
+            <summary>
+                OAuth authorize token
+            </summary>
+        </member>
+        <member name="P:Dapplo.HttpExtensions.OAuth.OAuth1Settings.CheckVerifier">
+            <summary>
+                If this is set, the value of the verifier will be validated (not null)
+            </summary>
+        </member>
+        <member name="P:Dapplo.HttpExtensions.OAuth.OAuth1Settings.RequestToken">
+            <summary>
+                OAuth request token
+            </summary>
+        </member>
+        <member name="P:Dapplo.HttpExtensions.OAuth.OAuth1Settings.RequestTokenSecret">
+            <summary>
+                OAuth request token secret
+            </summary>
+        </member>
+        <member name="P:Dapplo.HttpExtensions.OAuth.OAuth1Settings.SignatureType">
+            <summary>
+                The type of signature that is used, mostly this is HMacSha1
+            </summary>
+        </member>
+        <member name="P:Dapplo.HttpExtensions.OAuth.OAuth1Settings.RsaSha1Provider">
+            <summary>
+                For OAuth1SignatureTypes.RsaSha1 set this
+            </summary>
+        </member>
+        <member name="P:Dapplo.HttpExtensions.OAuth.OAuth1Settings.Token">
+            <summary>
+                The actualy token information, placed in an interface for usage with the Dapplo.Config project
+                the OAuthToken, a default implementation is assigned when the settings are created.
+                When using a Dapplo.Config IIniSection for your settings, this property can/should be overwritten with an instance
+                of your interface by makeing it extend IOAuthToken
+            </summary>
+        </member>
+        <member name="P:Dapplo.HttpExtensions.OAuth.OAuth1Settings.TokenMethod">
+            <summary>
+                The HttpMethod which is used for getting the token
+            </summary>
+        </member>
+        <member name="P:Dapplo.HttpExtensions.OAuth.OAuth1Settings.SignatureTransport">
+            <summary>
+            This defines the transport "way" which the OAuth signature takes.
+            Default is OAuth1SignatureTransports.Headers, which is normal, but SOME systems want the information in the query parameters.
+            (An example is Atlassians Confluence)
+            </summary>
+        </member>
+        <member name="T:Dapplo.HttpExtensions.OAuth.OAuth1SignatureTransports">
+            <summary>
+                Used to define the transport which the signature takes, in the headers or as query parameters
+            </summary>
+        </member>
+        <member name="F:Dapplo.HttpExtensions.OAuth.OAuth1SignatureTransports.Headers">
+            <summary>
+                Place the signature information in the headers of the request, this is the default
+            </summary>
+        </member>
+        <member name="F:Dapplo.HttpExtensions.OAuth.OAuth1SignatureTransports.QueryParameters">
+            <summary>
+                Place the signature information in the query parameters of the request
+            </summary>
+        </member>
+        <member name="T:Dapplo.HttpExtensions.OAuth.OAuth1SignatureTypes">
+            <summary>
+                Provides a predefined set of algorithms that are supported officially by the OAuth 1.x protocol
+            </summary>
+        </member>
+        <member name="F:Dapplo.HttpExtensions.OAuth.OAuth1SignatureTypes.HMacSha1">
+            <summary>
+                Hash-based Message Authentication Code (HMAC) using the SHA1 hash function.
+            </summary>
+        </member>
+        <member name="F:Dapplo.HttpExtensions.OAuth.OAuth1SignatureTypes.PlainText">
+            <summary>
+                The PLAINTEXT method does not provide any security protection and SHOULD only be used over a secure channel such as
+                HTTPS. It does not use the Signature Base String.
+            </summary>
+        </member>
+        <member name="F:Dapplo.HttpExtensions.OAuth.OAuth1SignatureTypes.RsaSha1">
+            <summary>
+                RSA-SHA1 signature method uses the RSASSA-PKCS1-v1_5 signature algorithm as defined in [RFC3447] section 8.2 (more
+                simply known as PKCS#1)
+            </summary>
+        </member>
+        <member name="T:Dapplo.HttpExtensions.OAuth.OAuth1Token">
+            <summary>
+                A default implementation for the IOAuthToken, nothing fancy
+                For more information, see the IOAuthToken interface
+            </summary>
+        </member>
+        <member name="P:Dapplo.HttpExtensions.OAuth.OAuth1Token.OAuthTokenSecret">
+            <inheritdoc />
+        </member>
+        <member name="P:Dapplo.HttpExtensions.OAuth.OAuth1Token.OAuthToken">
+            <inheritdoc />
+        </member>
+        <member name="P:Dapplo.HttpExtensions.OAuth.OAuth1Token.OAuthTokenVerifier">
+            <inheritdoc />
+        </member>
+        <member name="T:Dapplo.HttpExtensions.OAuth.OAuth2Fields">
+            <summary>
+                This enum is used internally for the mapping of the field names
+            </summary>
+        </member>
+        <member name="T:Dapplo.HttpExtensions.OAuth.OAuth2HttpBehaviourFactory">
+            <summary>
+                This factory can be used to create a IHttpBehaviour which handles OAuth 2 requests
+            </summary>
+        </member>
+        <member name="M:Dapplo.HttpExtensions.OAuth.OAuth2HttpBehaviourFactory.Create(Dapplo.HttpExtensions.OAuth.OAuth2Settings,Dapplo.HttpExtensions.IHttpBehaviour)">
+            <summary>
+                Create a specify OAuth2 IHttpBehaviour
+            </summary>
+            <param name="oAuth2Settings">OAuth2Settings</param>
+            <param name="fromHttpBehaviour">IHttpBehaviour to clone, null if a new needs to be generated</param>
+            <returns>IHttpBehaviour</returns>
+        </member>
+        <member name="T:Dapplo.HttpExtensions.OAuth.OAuth2HttpMessageHandler">
+            <summary>
+                This DelegatingHandler handles the OAuth2 specific stuff and delegates the "final" SendAsync to the InnerHandler
+            </summary>
+        </member>
+        <member name="M:Dapplo.HttpExtensions.OAuth.OAuth2HttpMessageHandler.#cctor">
+            <summary>
+                Add the local server handler.
+            </summary>
+        </member>
+        <member name="M:Dapplo.HttpExtensions.OAuth.OAuth2HttpMessageHandler.#ctor(Dapplo.HttpExtensions.OAuth.OAuth2Settings,Dapplo.HttpExtensions.IHttpBehaviour,System.Net.Http.HttpMessageHandler)">
+            <summary>
+                Create a HttpMessageHandler which handles the OAuth 2 communication for you
+            </summary>
+            <param name="oAuth2Settings">OAuth2Settings</param>
+            <param name="httpBehaviour">IHttpBehaviour</param>
+            <param name="innerHandler">HttpMessageHandler</param>
+        </member>
+        <member name="P:Dapplo.HttpExtensions.OAuth.OAuth2HttpMessageHandler.CodeReceivers">
+            <summary>
+                Register your special OAuth handler for the AuthorizeMode here
+                Default the AuthorizeModes.LocalServer is registered.
+                Your implementation is a function which returns a Task with a IDictionary string,string.
+                It receives the OAuth2Settings and a CancellationToken.
+                The return value should be that which the OAuth server gives as return values, no processing.
+            </summary>
+        </member>
+        <member name="M:Dapplo.HttpExtensions.OAuth.OAuth2HttpMessageHandler.AuthenticateAsync(System.Threading.CancellationToken)">
+            <summary>
+                Authenticate by using the mode specified in the settings
+            </summary>
+            <param name="cancellationToken">CancellationToken</param>
+            <returns>false if it was canceled, true if it worked, exception if not</returns>
+        </member>
+        <member name="M:Dapplo.HttpExtensions.OAuth.OAuth2HttpMessageHandler.CheckAndAuthenticateOrRefreshAsync(System.Threading.CancellationToken)">
+            <summary>
+                Check and authenticate or refresh tokens
+            </summary>
+            <param name="cancellationToken">CancellationToken</param>
+        </member>
+        <member name="M:Dapplo.HttpExtensions.OAuth.OAuth2HttpMessageHandler.GenerateAccessTokenAsync(System.Threading.CancellationToken)">
+            <summary>
+                Step 3:
+                Go out and retrieve a new access token via refresh-token
+                Will upate the access token, refresh token, expire date
+            </summary>
+            <param name="cancellationToken">CancellationToken</param>
+        </member>
+        <member name="M:Dapplo.HttpExtensions.OAuth.OAuth2HttpMessageHandler.GenerateRefreshTokenAsync(System.Threading.CancellationToken)">
+            <summary>
+                Step 2: Generate an OAuth 2 AccessToken / RefreshToken
+            </summary>
+            <param name="cancellationToken">CancellationToken</param>
+        </member>
+        <member name="M:Dapplo.HttpExtensions.OAuth.OAuth2HttpMessageHandler.SendAsync(System.Net.Http.HttpRequestMessage,System.Threading.CancellationToken)">
+            <summary>
+                Check the HttpRequestMessage if all OAuth setting are there, if not make this available.
+            </summary>
+            <param name="httpRequestMessage">HttpRequestMessage</param>
+            <param name="cancellationToken">CancellationToken</param>
+            <returns>HttpResponseMessage</returns>
+        </member>
+        <member name="T:Dapplo.HttpExtensions.OAuth.OAuth2Settings">
+            <summary>
+                Settings for the OAuth 2 protocol
+            </summary>
+        </member>
+        <member name="P:Dapplo.HttpExtensions.OAuth.OAuth2Settings.Code">
+            <summary>
+                This contains the code returned from the authorization, but only shortly after it was received.
+                It will be cleared as soon as it was used.
+            </summary>
+        </member>
+        <member name="P:Dapplo.HttpExtensions.OAuth.OAuth2Settings.IsAccessTokenExpired">
+            <summary>
+                Return true if the access token is expired.
+                Important "side-effect": if true is returned the AccessToken will be set to null!
+            </summary>
+        </member>
+        <member name="P:Dapplo.HttpExtensions.OAuth.OAuth2Settings.Token">
+            <summary>
+                The actualy token information, placed in an interface for usage with the Dapplo.Config project
+                the OAuth2Token, a default implementation is assigned when the settings are created.
+                When using a Dapplo.Config IIniSection for your settings, this can/should be overwritten with your interface, and
+                make it extend IOAuth2Token
+            </summary>
+        </member>
+        <member name="T:Dapplo.HttpExtensions.OAuth.OAuth2TokenInformation">
+            <summary>
+                A default implementation for the IOAuth2Token, nothing fancy
+                For more information, see the IOAuth2Token interface
+            </summary>
+        </member>
+        <member name="T:Dapplo.HttpExtensions.OAuth.OAuth2TokenResponse">
+            <summary>
+                Container for the OAuth token / refresh response
+            </summary>
+        </member>
+        <member name="P:Dapplo.HttpExtensions.OAuth.OAuth2TokenResponse.AccessToken">
+            <summary>
+                The access token
+            </summary>
+        </member>
+        <member name="P:Dapplo.HttpExtensions.OAuth.OAuth2TokenResponse.Error">
+            <summary>
+                The error
+            </summary>
+        </member>
+        <member name="P:Dapplo.HttpExtensions.OAuth.OAuth2TokenResponse.ErrorDescription">
+            <summary>
+                Details to the error
+            </summary>
+        </member>
+        <member name="P:Dapplo.HttpExtensions.OAuth.OAuth2TokenResponse.Expires">
+            <summary>
+                Returns the time that the token expires
+            </summary>
+        </member>
+        <member name="P:Dapplo.HttpExtensions.OAuth.OAuth2TokenResponse.ExpiresInSeconds">
+            <summary>
+                DateTimeOffset.Now.AddSeconds(expiresIn)
+            </summary>
+        </member>
+        <member name="P:Dapplo.HttpExtensions.OAuth.OAuth2TokenResponse.HasError">
+            <summary>
+                Test if the response has an error
+            </summary>
+        </member>
+        <member name="P:Dapplo.HttpExtensions.OAuth.OAuth2TokenResponse.IsInvalidGrant">
+            <summary>
+                Test if the error is an invalid grant
+            </summary>
+        </member>
+        <member name="P:Dapplo.HttpExtensions.OAuth.OAuth2TokenResponse.RefreshToken">
+            <summary>
+                Refresh token, used to get a new access token
+            </summary>
+        </member>
+        <member name="P:Dapplo.HttpExtensions.OAuth.OAuth2TokenResponse.TokenType">
+            <summary>
+                Type for the token
+            </summary>
+        </member>
+        <member name="T:Dapplo.HttpExtensions.OAuth.OAuthExtensions">
+            <summary>
+            Helper method for OAuth
+            </summary>
+        </member>
+        <member name="M:Dapplo.HttpExtensions.OAuth.OAuthExtensions.HasToken(Dapplo.HttpExtensions.OAuth.IOAuth1Token)">
+            <summary>
+            Test if the IOAuth1Token has a token set 
+            </summary>
+            <param name="oAuth1Token">IOAuth1Token</param>
+            <returns>true if the specified IOAuth1Token has token information</returns>
+        </member>
+        <member name="M:Dapplo.HttpExtensions.OAuth.OAuthExtensions.ResetToken(Dapplo.HttpExtensions.OAuth.IOAuth1Token)">
+            <summary>
+            Reset the oauth token information
+            </summary>
+            <param name="oAuth1Token">IOAuth1Token</param>
+        </member>
+        <member name="M:Dapplo.HttpExtensions.OAuth.OAuthExtensions.HasToken(Dapplo.HttpExtensions.OAuth.IOAuth2Token)">
+            <summary>
+            Test if the IOAuth2Token has a token set 
+            </summary>
+            <param name="oAuth2Token">IOAuth2Token</param>
+            <returns>true if the specified IOAuth2Token has token information</returns>
+        </member>
+        <member name="M:Dapplo.HttpExtensions.OAuth.OAuthExtensions.ResetToken(Dapplo.HttpExtensions.OAuth.IOAuth2Token)">
+            <summary>
+            Reset the oauth token information
+            </summary>
+            <param name="oAuth2Token"></param>
+        </member>
+        <member name="M:Dapplo.HttpExtensions.OAuth.OAuthExtensions.IsAccessTokenExpired(Dapplo.HttpExtensions.OAuth.IOAuth2Token)">
+            <summary>
+            Test if the access token is expired
+            </summary>
+            <param name="oAuth2Token">IOAuth2Token</param>
+            <returns>True if the token is expired</returns>
+        </member>
+    </members>
+</doc>
